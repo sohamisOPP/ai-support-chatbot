@@ -95,10 +95,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* Subtle, clean notification toast */}
+    <div className="min-h-screen flex flex-col bg-slate-100 text-slate-900 font-sans relative overflow-x-hidden selection:bg-blue-600 selection:text-white">
+      {/* Ambient gradient mesh for glassmorphism refraction */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-300/35 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-1/3 w-[30rem] h-[30rem] bg-sky-200/35 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 right-10 w-80 h-80 bg-teal-200/30 rounded-full blur-3xl" />
+      </div>
+
+      {/* Floating Glassmorphism Toast Notification */}
       {notification && (
-        <div className="fixed top-20 right-6 z-50 animate-fade-in max-w-sm p-4 rounded-xl bg-white border border-red-200 shadow-lg text-slate-800">
+        <div className="fixed top-20 right-6 z-50 animate-fade-in max-w-sm p-4 rounded-2xl glass-panel border border-red-200/80 shadow-xl text-slate-800">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="font-semibold text-xs text-red-700">
@@ -110,7 +118,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setActiveTab('crm')}
-              className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[11px] font-semibold text-slate-800 whitespace-nowrap transition-colors"
+              className="px-2.5 py-1 rounded-lg glass-pill hover:bg-white text-[11px] font-semibold text-slate-800 whitespace-nowrap transition-colors"
             >
               View →
             </button>
@@ -118,16 +126,18 @@ export default function App() {
         </div>
       )}
 
-      {/* Main Navigation Header */}
-      <Header
-        language={language}
-        setLanguage={setLanguage}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      {/* Main Navigation Header with Glassmorphism */}
+      <div className="relative z-20">
+        <Header
+          language={language}
+          setLanguage={setLanguage}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      </div>
 
       {/* Main View Area */}
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {activeTab === 'demo' && (
           <ChatDemo
             language={language}
@@ -153,8 +163,10 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer with Glassmorphism */}
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }

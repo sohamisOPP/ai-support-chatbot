@@ -127,8 +127,8 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-fade-in">
-      {/* Overview Header */}
-      <div className="pb-4 border-b border-slate-200">
+      {/* Overview Header with Glassmorphism */}
+      <div className="glass-panel p-6 rounded-2xl shadow-sm">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           System Architecture &amp; Stack
         </h2>
@@ -137,76 +137,84 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
         </p>
       </div>
 
-      {/* 4 Pipeline Architecture Cards */}
+      {/* 4 Pipeline Architecture Cards with Glassmorphism */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 1</span>
-              <Globe className="w-4 h-4 text-slate-500" />
+              <div className="p-1 rounded-lg glass-pill text-slate-600">
+                <Globe className="w-4 h-4" />
+              </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">React Frontend</h4>
             <p className="text-xs text-slate-500 mt-1">
               Customer support messenger, real-time sentiment gauge, and CSAT collector.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
             React 18 • Tailwind CSS
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 2</span>
-              <Server className="w-4 h-4 text-slate-500" />
+              <div className="p-1 rounded-lg glass-pill text-slate-600">
+                <Server className="w-4 h-4" />
+              </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">FastAPI Gateway</h4>
             <p className="text-xs text-slate-500 mt-1">
               High-throughput async REST and WebSocket endpoints with session tracking.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
             Python 3.11 • Uvicorn
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 3</span>
-              <Cpu className="w-4 h-4 text-slate-500" />
+              <div className="p-1 rounded-lg glass-pill text-slate-600">
+                <Cpu className="w-4 h-4" />
+              </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">Sentiment &amp; NLP Model</h4>
             <p className="text-xs text-slate-500 mt-1">
               DistilBERT sequence classification and intent/entity extraction.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
             PyTorch • Transformers
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 4</span>
-              <Database className="w-4 h-4 text-slate-500" />
+              <div className="p-1 rounded-lg glass-pill text-slate-600">
+                <Database className="w-4 h-4" />
+              </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">PostgreSQL &amp; CRM Sync</h4>
             <p className="text-xs text-slate-500 mt-1">
               Stores transcripts, dispatches tickets to Zendesk &amp; Salesforce.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
             PostgreSQL • REST Webhooks
           </div>
         </div>
       </div>
 
-      {/* Code Viewer */}
-      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-sm">
-        <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* Code Viewer with Glass Header and Dark Glass Terminal */}
+      <div className="glass-dark rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+        <div className="px-5 py-3.5 bg-slate-900/90 border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Code2 className="w-4 h-4 text-slate-400" />
             <span className="text-xs font-semibold text-slate-200">
@@ -215,10 +223,10 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center bg-slate-900 p-0.5 rounded-lg border border-slate-700 text-xs font-mono">
+            <div className="flex items-center bg-slate-800/80 p-0.5 rounded-xl border border-white/10 text-xs font-mono">
               <button
                 onClick={() => setActiveCodeTab('fastapi')}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-3 py-1 rounded-lg transition-colors ${
                   activeCodeTab === 'fastapi'
                     ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
@@ -228,7 +236,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               </button>
               <button
                 onClick={() => setActiveCodeTab('transformers')}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-3 py-1 rounded-lg transition-colors ${
                   activeCodeTab === 'transformers'
                     ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
@@ -238,7 +246,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               </button>
               <button
                 onClick={() => setActiveCodeTab('database')}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-3 py-1 rounded-lg transition-colors ${
                   activeCodeTab === 'database'
                     ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
@@ -250,7 +258,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
 
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs flex items-center gap-1 transition-colors"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs flex items-center gap-1 transition-colors border border-white/10"
               title="Copy code"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -259,7 +267,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
         </div>
 
         {/* Code Content */}
-        <div className="p-4 bg-slate-950 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
+        <div className="p-4 bg-slate-950/90 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
           <pre>{codeSnippets[activeCodeTab]}</pre>
         </div>
       </div>
