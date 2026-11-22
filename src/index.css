@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    background-color: #f1f5f9;
+    background-color: #f8fafc;
     color: #0f172a;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -13,77 +13,50 @@
   }
 }
 
-/* Glassmorphism Classes */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+/* Precision surface and card classes (Unslop standard) */
+.surface-base {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+.surface-raised {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
 }
 
-.glass-pill {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+.surface-muted {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 
-.glass-header {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
+/* Tabular figures for numbers and financial data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
-.glass-input {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) inset;
-}
-
-.glass-dark {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.2);
-}
-
-/* Subtle, clean scrollbars */
+/* Quiet, standardized scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 9999px;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+/* Single entrance transition */
+@keyframes enterFade {
+  from { opacity: 0; transform: translateY(3px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
+.animate-enter {
+  animation: enterFade 180ms ease-out forwards;
 }

@@ -33,10 +33,10 @@ class AnalysisResponse(BaseModel):
 
 @app.post("/api/v1/chat", response_model=AnalysisResponse)
 async def process_message(payload: CustomerMessage):
-    # 1. Real-time NLP & Sentiment inference
+    # 1. Real-time NLP & sentiment inference
     analysis = analyze_text_sentiment(payload.message)
     
-    # 2. Dynamic Escalation Trigger Check
+    # 2. Dynamic escalation trigger check
     ticket_id = None
     if analysis["frustration_index"] >= 70 or analysis["escalation_demanded"]:
         ticket_id = await dispatch_to_salesforce(
@@ -50,7 +50,7 @@ async def process_message(payload: CustomerMessage):
             f"inquiry to a Senior Support Specialist. Ticket ID: {ticket_id}."
         )
     else:
-        # Tier-1 Autonomous Resolution
+        # Tier-1 autonomous resolution
         reply = resolve_tier1_inquiry(payload.message, analysis["intent"])
 
     return AnalysisResponse(
@@ -126,130 +126,139 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-fade-in">
-      {/* Overview Header with Glassmorphism */}
-      <div className="glass-panel p-6 rounded-2xl shadow-sm">
-        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-          System Architecture &amp; Stack
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      {/* Overview Header */}
+      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            System Architecture
+          </span>
+          <span className="text-slate-300">•</span>
+          <span className="text-xs text-slate-500">
+            Project B Engineering Specifications
+          </span>
+        </div>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Multi-Tier Pipeline &amp; Integration Architecture
         </h2>
-        <p className="text-sm text-slate-600 mt-0.5 max-w-3xl">
-          Complete implementation matching <strong>Project B Specifications</strong>: Python (FastAPI), Hugging Face Transformers &amp; OpenAI API, React frontend, and PostgreSQL with CRM webhooks.
+        <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl">
+          Complies with Project B requirements: Python (FastAPI), Hugging Face Transformers &amp; OpenAI API, React client, PostgreSQL persistent storage, and CRM webhooks.
         </p>
       </div>
 
-      {/* 4 Pipeline Architecture Cards with Glassmorphism */}
+      {/* 4 Pipeline Architecture Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
+        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 1</span>
-              <div className="p-1 rounded-lg glass-pill text-slate-600">
+              <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Globe className="w-4 h-4" />
               </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">React Frontend</h4>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 mt-1 leading-normal">
               Customer support messenger, real-time sentiment gauge, and CSAT collector.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
+          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             React 18 • Tailwind CSS
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
+        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 2</span>
-              <div className="p-1 rounded-lg glass-pill text-slate-600">
+              <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Server className="w-4 h-4" />
               </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">FastAPI Gateway</h4>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 mt-1 leading-normal">
               High-throughput async REST and WebSocket endpoints with session tracking.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
+          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             Python 3.11 • Uvicorn
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
+        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 3</span>
-              <div className="p-1 rounded-lg glass-pill text-slate-600">
+              <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Cpu className="w-4 h-4" />
               </div>
             </div>
-            <h4 className="text-sm font-bold text-slate-900">Sentiment &amp; NLP Model</h4>
-            <p className="text-xs text-slate-500 mt-1">
+            <h4 className="text-sm font-bold text-slate-900">NLP &amp; Sentiment Model</h4>
+            <p className="text-xs text-slate-500 mt-1 leading-normal">
               DistilBERT sequence classification and intent/entity extraction.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
+          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             PyTorch • Transformers
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl glass-card shadow-sm flex flex-col justify-between border border-white/70">
+        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 4</span>
-              <div className="p-1 rounded-lg glass-pill text-slate-600">
+              <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Database className="w-4 h-4" />
               </div>
             </div>
             <h4 className="text-sm font-bold text-slate-900">PostgreSQL &amp; CRM Sync</h4>
-            <p className="text-xs text-slate-500 mt-1">
-              Stores transcripts, dispatches tickets to Zendesk &amp; Salesforce.
+            <p className="text-xs text-slate-500 mt-1 leading-normal">
+              Stores transcripts, dispatches tickets to Zendesk and Salesforce.
             </p>
           </div>
-          <div className="mt-4 pt-2 border-t border-white/60 text-[11px] text-slate-500 font-mono">
+          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             PostgreSQL • REST Webhooks
           </div>
         </div>
       </div>
 
-      {/* Code Viewer with Glass Header and Dark Glass Terminal */}
-      <div className="glass-dark rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-        <div className="px-5 py-3.5 bg-slate-900/90 border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* Code Viewer */}
+      <div className="rounded-xl overflow-hidden border border-slate-800 shadow-lg">
+        <div className="px-4 py-3 bg-slate-900 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Code2 className="w-4 h-4 text-slate-400" />
             <span className="text-xs font-semibold text-slate-200">
-              Backend Source Code
+              Backend Implementation
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center bg-slate-800/80 p-0.5 rounded-xl border border-white/10 text-xs font-mono">
+            <div className="flex items-center bg-slate-800 p-0.5 rounded-md text-xs font-mono">
               <button
                 onClick={() => setActiveCodeTab('fastapi')}
-                className={`px-3 py-1 rounded-lg transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors ${
                   activeCodeTab === 'fastapi'
-                    ? 'bg-slate-700 text-white font-semibold'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-slate-700 text-white font-medium'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 fastapi_server.py
               </button>
               <button
                 onClick={() => setActiveCodeTab('transformers')}
-                className={`px-3 py-1 rounded-lg transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors ${
                   activeCodeTab === 'transformers'
-                    ? 'bg-slate-700 text-white font-semibold'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-slate-700 text-white font-medium'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 sentiment_model.py
               </button>
               <button
                 onClick={() => setActiveCodeTab('database')}
-                className={`px-3 py-1 rounded-lg transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors ${
                   activeCodeTab === 'database'
-                    ? 'bg-slate-700 text-white font-semibold'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-slate-700 text-white font-medium'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 database_models.py
@@ -258,16 +267,17 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
 
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs flex items-center gap-1 transition-colors border border-white/10"
+              className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1.5 transition-colors border border-slate-700"
               title="Copy code"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="text-[11px]">{copied ? 'Copied' : 'Copy'}</span>
             </button>
           </div>
         </div>
 
         {/* Code Content */}
-        <div className="p-4 bg-slate-950/90 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
+        <div className="p-4 bg-slate-950 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
           <pre>{codeSnippets[activeCodeTab]}</pre>
         </div>
       </div>

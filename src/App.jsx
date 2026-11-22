@@ -17,40 +17,40 @@ export default function App() {
   const [tickets, setTickets] = useState([
     {
       id: 'TKT-841920',
-      customer: 'Sarah Jenkins (Enterprise Pro)',
-      intent: 'Billing & Charges',
-      sentiment: 'Very Negative',
+      customer: 'Sarah Jenkins',
+      intent: 'Billing and charges',
+      sentiment: 'Negative',
       frustrationScore: 89,
       priority: 'Urgent',
-      source: 'Support Chat Escalation',
+      source: 'Support escalation',
       reason: 'Double charge dispute on Order #ORD-4491 ($120.00)',
       timestamp: '10:14 AM',
       status: 'Open',
       crmSystem: 'Salesforce Service Cloud',
-      transcriptSnippet: "I was double charged $120.00 on Order #ORD-4491! This is unacceptable, refund my money immediately!"
+      transcriptSnippet: "I was double charged $120.00 on Order #ORD-4491. Please refund this immediately."
     },
     {
       id: 'TKT-773194',
       customer: 'Carlos Rivera',
-      intent: 'Order Tracking & Status',
+      intent: 'Order tracking and status',
       sentiment: 'Negative',
       frustrationScore: 68,
       priority: 'High',
-      source: 'Support Chat Escalation',
-      reason: 'Delivery delayed > 5 days without carrier update',
+      source: 'Support escalation',
+      reason: 'Delivery delayed more than 5 days without carrier update',
       timestamp: '09:42 AM',
       status: 'In Progress',
       crmSystem: 'Zendesk Support',
-      transcriptSnippet: "Where is my package TRK-88129? It was supposed to be delivered last Friday."
+      transcriptSnippet: "Where is my package TRK-88129? It was scheduled for delivery last Friday."
     },
     {
       id: 'TKT-651203',
       customer: 'Elena Rostova',
-      intent: 'Account Access & Auth',
+      intent: 'Account access and authentication',
       sentiment: 'Neutral',
       frustrationScore: 35,
       priority: 'Medium',
-      source: 'Tier-1 Escalation',
+      source: 'Tier-1 escalation',
       reason: '2FA authentication reset request for corporate SSO',
       timestamp: 'Yesterday',
       status: 'Resolved',
@@ -62,13 +62,13 @@ export default function App() {
   const handleTicketCreated = (newTicket) => {
     setTickets(prev => [newTicket, ...prev]);
     setNotification({
-      title: 'Ticket Escalated to Human Support',
-      message: `Ticket ${newTicket.id} assigned to Tier-2 queue (${newTicket.priority} Priority).`
+      title: 'Ticket escalated to support',
+      message: `Ticket ${newTicket.id} assigned to tier-2 queue (${newTicket.priority} priority)`
     });
 
     setTimeout(() => {
       setNotification(null);
-    }, 5000);
+    }, 4500);
   };
 
   const handleResolveTicket = (ticketId) => {
@@ -81,12 +81,12 @@ export default function App() {
     const randomId = `TKT-${Math.floor(100000 + Math.random() * 900000)}`;
     const sample = {
       id: randomId,
-      customer: 'David Chen (Corporate Client)',
-      intent: 'Technical Outage',
-      sentiment: 'Very Negative',
+      customer: 'David Chen',
+      intent: 'Technical outage',
+      sentiment: 'Negative',
       frustrationScore: 92,
       priority: 'Urgent',
-      source: 'Urgency Threshold Trigger',
+      source: 'Urgency threshold trigger',
       reason: 'Production API 500 error during high traffic period',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       status: 'Open',
@@ -97,21 +97,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100 text-slate-900 font-sans relative overflow-x-hidden selection:bg-blue-600 selection:text-white">
-      {/* Ambient gradient mesh for glassmorphism refraction */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-300/35 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-1/3 w-[30rem] h-[30rem] bg-sky-200/35 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 right-10 w-80 h-80 bg-teal-200/30 rounded-full blur-3xl" />
-      </div>
-
-      {/* Floating Glassmorphism Toast Notification */}
+    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-900 font-sans selection:bg-slate-900 selection:text-white">
+      {/* Toast Notification - Quiet, crisp enterprise notification */}
       {notification && (
-        <div className="fixed top-20 right-6 z-50 animate-fade-in max-w-sm p-4 rounded-2xl glass-panel border border-red-200/80 shadow-xl text-slate-800">
+        <div className="fixed top-18 right-6 z-50 animate-enter max-w-sm p-3.5 rounded-lg bg-white border border-slate-200 shadow-md text-slate-900">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="font-semibold text-xs text-red-700">
+              <div className="font-semibold text-xs text-slate-900">
                 {notification.title}
               </div>
               <div className="text-xs text-slate-600 mt-0.5">
@@ -120,27 +112,25 @@ export default function App() {
             </div>
             <button
               onClick={() => setActiveTab('crm')}
-              className="px-2.5 py-1 rounded-lg glass-pill hover:bg-white text-[11px] font-semibold text-slate-800 whitespace-nowrap transition-colors"
+              className="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[11px] font-medium text-slate-800 transition-colors"
             >
-              View →
+              View
             </button>
           </div>
         </div>
       )}
 
-      {/* Main Navigation Header with Glassmorphism */}
-      <div className="relative z-20">
-        <Header
-          language={language}
-          setLanguage={setLanguage}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          onOpenAbout={() => setIsAboutOpen(true)}
-        />
-      </div>
+      {/* Navigation Header */}
+      <Header
+        language={language}
+        setLanguage={setLanguage}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenAbout={() => setIsAboutOpen(true)}
+      />
 
       {/* Main View Area */}
-      <main className="flex-1 relative z-10">
+      <main className="flex-1">
         {activeTab === 'demo' && (
           <ChatDemo
             language={language}
@@ -166,16 +156,14 @@ export default function App() {
         )}
       </main>
 
-      {/* 30-Page About & Documentation Modal */}
+      {/* 30-Page Documentation Modal */}
       <AboutModal
         isOpen={isAboutOpen}
         onClose={() => setIsAboutOpen(false)}
       />
 
-      {/* Footer with Glassmorphism */}
-      <div className="relative z-10">
-        <Footer />
-      </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -12,121 +12,118 @@ export default function Header({ language, setLanguage, activeTab, setActiveTab,
   ];
 
   return (
-    <header className="sticky top-0 z-40 glass-header">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 gap-1 sm:gap-4">
-          {/* Logo & Product Brand: Soham Chatbot */}
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600/90 backdrop-blur-md flex items-center justify-center text-white shadow-md shadow-blue-600/20 ring-1 ring-white/40 flex-shrink-0">
-              <Headphones className="w-4 h-4 sm:w-5 sm:h-5" />
+    <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
+          {/* Logo & Product Brand */}
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white flex-shrink-0">
+              <Headphones className="w-4 h-4 text-slate-200" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-bold text-sm sm:text-base tracking-tight text-slate-900 truncate">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-sm sm:text-base tracking-tight text-slate-900 truncate">
                   Soham Chatbot
                 </span>
-                <span className="hidden sm:inline-flex px-2 py-0.5 text-[11px] font-medium rounded-full glass-pill text-slate-700">
-                  Customer Support
+                <span className="hidden sm:inline-flex px-1.5 py-0.5 text-[11px] font-normal rounded bg-slate-100 text-slate-600 border border-slate-200">
+                  Customer support
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 hidden md:block">
-                Intelligent Inquiries, Sentiment Detection &amp; CRM Escalation
-              </p>
             </div>
           </div>
 
-          {/* Desktop Nav Tabs */}
-          <nav className="hidden md:flex items-center gap-1 glass-pill p-1 rounded-xl">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-lg border border-slate-200">
             <button
               onClick={() => setActiveTab('demo')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 activeTab === 'demo'
-                  ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                  ? 'bg-white text-slate-900 shadow-xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Support Messenger
+              Support messenger
             </button>
             <button
               onClick={() => setActiveTab('crm')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5 ${
                 activeTab === 'crm'
-                  ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                  ? 'bg-white text-slate-900 shadow-xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              CRM Ticket Queue
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+              CRM queue
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-900" />
             </button>
             <button
               onClick={() => setActiveTab('metrics')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 activeTab === 'metrics'
-                  ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                  ? 'bg-white text-slate-900 shadow-xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              CSAT &amp; Performance
+              Performance
             </button>
             <button
               onClick={() => setActiveTab('architecture')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 activeTab === 'architecture'
-                  ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                  ? 'bg-white text-slate-900 shadow-xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              System Architecture
+              Architecture
             </button>
           </nav>
 
-          {/* Right actions: About (30 Pages), Language & SLA Status - Guaranteed to fit on mobile */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-            {/* About 30-Page Guide Button on Top Right */}
+          {/* Right Action Group */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Documentation Button */}
             <button
               onClick={onOpenAbout}
-              className="glass-pill px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs font-semibold text-blue-700 hover:text-blue-900 hover:bg-white flex items-center gap-1 transition-all shadow-xs ring-1 ring-blue-500/25 flex-shrink-0 active:scale-95"
-              title="Open 30-Page Documentation Guide"
+              className="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 bg-white flex items-center gap-1.5 transition-colors shadow-xs"
+              title="Open 30-page documentation guide"
             >
-              <BookOpen className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+              <BookOpen className="w-3.5 h-3.5 text-slate-500" />
               <span>About</span>
-              <span className="hidden sm:inline-block px-1.5 py-0.2 rounded-full bg-blue-100 text-blue-800 text-[10px] font-mono font-bold">
-                30 Pages
+              <span className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-mono">
+                30 pages
               </span>
             </button>
 
-            {/* Language dropdown: Compact & guaranteed inside viewport */}
-            <div className="flex items-center glass-pill rounded-xl px-1.5 sm:px-2.5 py-1 text-xs flex-shrink-0">
-              <Globe className="w-3.5 h-3.5 text-slate-500 mr-1 flex-shrink-0" />
+            {/* Language Selector */}
+            <div className="flex items-center rounded-lg px-2 py-1 text-xs border border-slate-200 bg-white shadow-xs">
+              <Globe className="w-3.5 h-3.5 text-slate-500 mr-1" />
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="bg-transparent text-slate-700 font-semibold text-xs focus:outline-none cursor-pointer pr-0.5 appearance-none text-center"
-                title="Select Language"
+                className="bg-transparent text-slate-700 font-medium text-xs focus:outline-none cursor-pointer pr-0.5"
+                title="Select language"
               >
                 {languages.map((l) => (
-                  <option key={l.code} value={l.code} className="bg-white text-slate-800">
+                  <option key={l.code} value={l.code} className="bg-white text-slate-900">
                     {l.flag}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Status indicator (Desktop only) */}
-            <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-600 font-medium glass-pill px-3 py-1 rounded-full flex-shrink-0">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>Online</span>
+            {/* Desktop Operational State */}
+            <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-600 px-2 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span>Desk active</span>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation Tabs Bar */}
-        <div className="flex md:hidden items-center justify-around gap-1 pb-2 pt-1 border-t border-white/40">
+        {/* Mobile Navigation Sub-bar */}
+        <div className="flex md:hidden items-center justify-around gap-1 pb-2 pt-1 border-t border-slate-100">
           <button
             onClick={() => setActiveTab('demo')}
-            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
               activeTab === 'demo'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                ? 'bg-slate-900 text-white font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -134,34 +131,34 @@ export default function Header({ language, setLanguage, activeTab, setActiveTab,
           </button>
           <button
             onClick={() => setActiveTab('crm')}
-            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
+            className={`px-3 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1 ${
               activeTab === 'crm'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                ? 'bg-slate-900 text-white font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             CRM
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+            <span className="w-1 h-1 rounded-full bg-slate-400" />
           </button>
           <button
             onClick={() => setActiveTab('metrics')}
-            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
               activeTab === 'metrics'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                ? 'bg-slate-900 text-white font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            CSAT
+            Metrics
           </button>
           <button
             onClick={() => setActiveTab('architecture')}
-            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
               activeTab === 'architecture'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                ? 'bg-slate-900 text-white font-semibold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            Tech Stack
+            Tech stack
           </button>
         </div>
       </div>
