@@ -31,6 +31,12 @@ export default function AboutModal({ isOpen, onClose }) {
 
   const activePageData = ABOUT_PAGES.find((p) => p.id === currentPage) || ABOUT_PAGES[0];
 
+  // Helper to remove any literal asterisk characters from text
+  const sanitize = (text) => {
+    if (!text) return '';
+    return text.replaceAll('*', '');
+  };
+
   // Group pages by category for table of contents
   const categories = [
     { name: '1. Overview & Strategy', pages: ABOUT_PAGES.slice(0, 5) },
@@ -45,48 +51,49 @@ export default function AboutModal({ isOpen, onClose }) {
   const filteredPages = searchTerm.trim()
     ? ABOUT_PAGES.filter(
         (p) =>
-          p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.content.toLowerCase().includes(searchTerm.toLowerCase())
+          sanitize(p.title).toLowerCase().includes(searchTerm.toLowerCase()) ||
+          sanitize(p.summary).toLowerCase().includes(searchTerm.toLowerCase()) ||
+          sanitize(p.content).toLowerCase().includes(searchTerm.toLowerCase())
       )
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fade-in">
-      <div className="glass-panel w-full max-w-5xl h-[88vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-white/80">
-        {/* Top Header */}
-        <div className="px-6 py-4 glass-header border-b border-white/60 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/90 text-white flex items-center justify-center shadow-md shadow-blue-600/20 ring-1 ring-white/40">
-              <BookOpen className="w-5 h-5" />
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-2 sm:p-6 animate-fade-in">
+      <div className="glass-panel w-full max-w-5xl h-[94vh] sm:h-[88vh] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-white/80">
+        {/* Top Header - Mobile friendly and spacious */}
+        <div className="px-4 sm:px-6 py-3.5 glass-header border-b border-white/60 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600/90 text-white flex items-center justify-center shadow-md shadow-blue-600/20 ring-1 ring-white/40 flex-shrink-0">
+              <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-slate-900">
-                  About SentiDesk AI
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
+                  About SentiDesk
                 </h3>
-                <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-mono font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] sm:text-[11px] font-mono font-semibold whitespace-nowrap">
                   Page {currentPage} of 30
                 </span>
               </div>
-              <p className="text-xs text-slate-500 hidden sm:block">
+              <p className="text-xs text-slate-500 hidden md:block">
                 30-Page Reference Guide • Architecture, NLP, Sentiment &amp; Tech Stack
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Jump to page select */}
-            <div className="hidden sm:flex items-center glass-pill rounded-xl px-2.5 py-1 text-xs">
-              <span className="text-slate-500 mr-2 font-medium">Jump to:</span>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Jump to page select (Visible on both mobile & desktop!) */}
+            <div className="flex items-center glass-pill rounded-xl px-2 py-1 text-xs">
+              <span className="text-slate-500 mr-1.5 font-medium hidden sm:inline">Jump:</span>
               <select
                 value={currentPage}
                 onChange={(e) => setCurrentPage(Number(e.target.value))}
-                className="bg-transparent text-slate-800 font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent text-slate-800 font-bold text-xs focus:outline-none cursor-pointer pr-1"
+                title="Select Page"
               >
                 {ABOUT_PAGES.map((p) => (
                   <option key={p.id} value={p.id} className="bg-white text-slate-900">
-                    Page {p.id}: {p.title.substring(0, 24)}...
+                    P.{p.id}: {sanitize(p.title).substring(0, 20)}...
                   </option>
                 ))}
               </select>
@@ -95,7 +102,7 @@ export default function AboutModal({ isOpen, onClose }) {
             {/* Close button */}
             <button
               onClick={onClose}
-              className="p-2 rounded-xl glass-pill hover:bg-white text-slate-500 hover:text-slate-800 transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl glass-pill hover:bg-white text-slate-500 hover:text-slate-800 transition-colors"
               title="Close Guide (Esc)"
             >
               <X className="w-4 h-4" />
@@ -105,7 +112,7 @@ export default function AboutModal({ isOpen, onClose }) {
 
         {/* Main Content Area: Sidebar + Reader */}
         <div className="flex-1 flex overflow-hidden">
-          {/* Table of Contents Sidebar */}
+          {/* Table of Contents Sidebar (Desktop) */}
           <aside className="w-72 border-r border-white/60 bg-white/40 backdrop-blur-md hidden md:flex flex-col">
             {/* Search Bar */}
             <div className="p-3 border-b border-white/60">
@@ -143,7 +150,7 @@ export default function AboutModal({ isOpen, onClose }) {
                         }`}
                       >
                         <span className="font-mono text-[10px] opacity-75">#{p.id}</span>
-                        <span className="truncate">{p.title}</span>
+                        <span className="truncate">{sanitize(p.title)}</span>
                       </button>
                     ))}
                   </div>
@@ -169,7 +176,7 @@ export default function AboutModal({ isOpen, onClose }) {
                             <span className="font-mono text-[10px] opacity-70">
                               {p.id.toString().padStart(2, '0')}
                             </span>
-                            <span className="truncate">{p.title}</span>
+                            <span className="truncate">{sanitize(p.title)}</span>
                           </div>
                           {currentPage === p.id && (
                             <span className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -184,35 +191,35 @@ export default function AboutModal({ isOpen, onClose }) {
           </aside>
 
           {/* Reader Body */}
-          <main className="flex-1 overflow-y-auto p-6 sm:p-8 bg-white/30 backdrop-blur-xs flex flex-col justify-between">
-            <div className="max-w-3xl space-y-5 animate-fade-in" key={activePageData.id}>
+          <main className="flex-1 overflow-y-auto p-4 sm:p-8 bg-white/30 backdrop-blur-xs flex flex-col justify-between">
+            <div className="max-w-3xl space-y-4 sm:space-y-5 animate-fade-in" key={activePageData.id}>
               {/* Category & Page Badge */}
               <div className="flex items-center justify-between gap-2">
                 <span className="px-2.5 py-1 rounded-full glass-pill text-blue-700 text-xs font-semibold">
-                  {activePageData.category}
+                  {sanitize(activePageData.category)}
                 </span>
                 <span className="text-xs text-slate-400 font-mono">
                   Documentation Page #{activePageData.id}
                 </span>
               </div>
 
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                {activePageData.title}
+              {/* Title without any asterisks */}
+              <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                {sanitize(activePageData.title)}
               </h2>
 
               {/* Summary Highlight Box */}
-              <div className="p-4 rounded-2xl glass-card border border-blue-200/50 bg-blue-50/40 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                <strong>Overview:</strong> {activePageData.summary}
+              <div className="p-3.5 sm:p-4 rounded-2xl glass-card border border-blue-200/50 bg-blue-50/40 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <strong>Overview:</strong> {sanitize(activePageData.summary)}
               </div>
 
-              {/* Rendered Content */}
-              <div className="text-slate-800 text-sm leading-relaxed space-y-4 pt-2">
-                {activePageData.content.trim().split('\n\n').map((paragraph, pIdx) => {
+              {/* Rendered Content - Completely free of any asterisks */}
+              <div className="text-slate-800 text-xs sm:text-sm leading-relaxed space-y-4 pt-1">
+                {sanitize(activePageData.content).trim().split('\n\n').map((paragraph, pIdx) => {
                   // Headings
                   if (paragraph.startsWith('### ')) {
                     return (
-                      <h4 key={pIdx} className="text-base font-bold text-slate-900 pt-2 border-b border-white/60 pb-1">
+                      <h4 key={pIdx} className="text-sm sm:text-base font-bold text-slate-900 pt-2 border-b border-white/60 pb-1">
                         {paragraph.replace('### ', '')}
                       </h4>
                     );
@@ -224,8 +231,7 @@ export default function AboutModal({ isOpen, onClose }) {
                     return (
                       <ul key={pIdx} className="space-y-2 pl-2">
                         {lines.map((line, lIdx) => {
-                          const clean = line.replace(/^[-*•\d.]\s*/, '')
-                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                          const clean = line.replace(/^[-•\d.]\s*/, '')
                             .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 rounded bg-black/5 text-blue-700 font-mono text-xs border border-black/10">$1</code>');
                           return (
                             <li key={lIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
@@ -238,9 +244,8 @@ export default function AboutModal({ isOpen, onClose }) {
                     );
                   }
 
-                  // Standard paragraph with bold and code tags
+                  // Standard paragraph with code tags
                   const parsed = paragraph
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 rounded bg-black/5 text-blue-700 font-mono text-xs border border-black/10">$1</code>');
 
                   return (
@@ -250,34 +255,38 @@ export default function AboutModal({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* Quick jump pagination pills (Mobile view) */}
-            <div className="mt-8 pt-4 border-t border-white/60 flex items-center justify-between text-xs text-slate-500">
-              <span className="text-[11px]">
+            {/* Pagination Progress info */}
+            <div className="mt-6 pt-3 border-t border-white/60 flex items-center justify-between text-xs text-slate-500">
+              <span className="text-[11px] hidden sm:inline">
                 Tip: Use <kbd className="px-1.5 py-0.5 rounded glass-pill font-mono text-[10px]">←</kbd> and <kbd className="px-1.5 py-0.5 rounded glass-pill font-mono text-[10px]">→</kbd> keys to flip pages
               </span>
-              <span className="font-mono text-xs">
+              <span className="text-[11px] inline sm:hidden">
+                Page {currentPage} of 30
+              </span>
+              <span className="font-mono text-xs font-semibold">
                 {Math.round((currentPage / 30) * 100)}% Complete
               </span>
             </div>
           </main>
         </div>
 
-        {/* Bottom Pagination Bar */}
-        <div className="px-6 py-3.5 glass-header border-t border-white/60 flex items-center justify-between gap-4">
+        {/* Bottom Pagination Bar - Un-pinched on mobile */}
+        <div className="px-3 sm:px-6 py-3 glass-header border-t border-white/60 flex items-center justify-between gap-2 sm:gap-4">
           {/* Previous Button */}
           <button
             onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl glass-pill hover:bg-white disabled:opacity-30 disabled:pointer-events-none text-xs font-semibold text-slate-800 flex items-center gap-1.5 transition-all shadow-xs"
+            className="px-3 sm:px-4 py-2 rounded-xl glass-pill hover:bg-white disabled:opacity-30 disabled:pointer-events-none text-xs font-semibold text-slate-800 flex items-center gap-1 transition-all shadow-xs flex-shrink-0"
           >
             <ChevronLeft className="w-4 h-4" />
-            <span>Previous Page</span>
+            <span className="hidden xs:inline">Prev</span>
+            <span className="hidden sm:inline">Page</span>
           </button>
 
           {/* Progress bar & indicator */}
-          <div className="flex-1 max-w-md hidden sm:flex items-center gap-3">
-            <span className="text-xs font-mono font-medium text-slate-600 whitespace-nowrap">
-              Page {currentPage} / 30
+          <div className="flex-1 max-w-md flex items-center gap-2 sm:gap-3 mx-2">
+            <span className="text-[11px] sm:text-xs font-mono font-medium text-slate-600 whitespace-nowrap">
+              {currentPage}/30
             </span>
             <div className="flex-1 bg-slate-200/70 h-2 rounded-full overflow-hidden p-0.5 border border-white/60">
               <div
@@ -291,9 +300,10 @@ export default function AboutModal({ isOpen, onClose }) {
           <button
             onClick={() => setCurrentPage((prev) => Math.min(30, prev + 1))}
             disabled={currentPage === 30}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md shadow-blue-600/20 ring-1 ring-white/30"
+            className="px-3 sm:px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-semibold flex items-center gap-1 transition-all shadow-md shadow-blue-600/20 ring-1 ring-white/30 flex-shrink-0"
           >
-            <span>Next Page</span>
+            <span className="hidden xs:inline">Next</span>
+            <span className="hidden sm:inline">Page</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
