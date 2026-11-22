@@ -1,7 +1,7 @@
 import React from 'react';
-import { Headphones, Globe } from 'lucide-react';
+import { Headphones, Globe, BookOpen } from 'lucide-react';
 
-export default function Header({ language, setLanguage, activeTab, setActiveTab }) {
+export default function Header({ language, setLanguage, activeTab, setActiveTab, onOpenAbout }) {
   const languages = [
     { code: 'en', name: 'English', flag: 'EN' },
     { code: 'es', name: 'Español', flag: 'ES' },
@@ -12,7 +12,7 @@ export default function Header({ language, setLanguage, activeTab, setActiveTab 
   ];
 
   return (
-    <header className="sticky top-0 z-50 glass-header">
+    <header className="sticky top-0 z-40 glass-header">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Product Brand */}
@@ -80,10 +80,23 @@ export default function Header({ language, setLanguage, activeTab, setActiveTab 
             </button>
           </nav>
 
-          {/* Right actions: Language & SLA Status */}
-          <div className="flex items-center gap-3">
+          {/* Right actions: About (30 Pages), Language & SLA Status */}
+          <div className="flex items-center gap-2.5">
+            {/* About 30-Page Guide Button on Top Right */}
+            <button
+              onClick={onOpenAbout}
+              className="glass-pill px-3 py-1.5 rounded-xl text-xs font-semibold text-blue-700 hover:text-blue-900 hover:bg-white flex items-center gap-1.5 transition-all shadow-xs ring-1 ring-blue-500/25"
+              title="Open 30-Page Documentation & Architecture Guide"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+              <span>About</span>
+              <span className="px-1.5 py-0.2 rounded-full bg-blue-100 text-blue-800 text-[10px] font-mono">
+                30 Pages
+              </span>
+            </button>
+
             {/* Language dropdown */}
-            <div className="flex items-center glass-pill rounded-lg px-2.5 py-1 text-xs">
+            <div className="flex items-center glass-pill rounded-xl px-2.5 py-1 text-xs">
               <Globe className="w-3.5 h-3.5 text-slate-500 mr-1.5" />
               <select
                 value={language}

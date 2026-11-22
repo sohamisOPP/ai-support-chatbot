@@ -4,12 +4,14 @@ import ChatDemo from './components/ChatDemo';
 import CrmDashboard from './components/CrmDashboard';
 import ArchitectureView from './components/ArchitectureView';
 import MetricsDashboard from './components/MetricsDashboard';
+import AboutModal from './components/AboutModal';
 import Footer from './components/Footer';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('demo');
   const [language, setLanguage] = useState('en');
   const [notification, setNotification] = useState(null);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   // Initial simulated tickets in the CRM from Zendesk / Salesforce
   const [tickets, setTickets] = useState([
@@ -133,6 +135,7 @@ export default function App() {
           setLanguage={setLanguage}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          onOpenAbout={() => setIsAboutOpen(true)}
         />
       </div>
 
@@ -162,6 +165,12 @@ export default function App() {
           <ArchitectureView />
         )}
       </main>
+
+      {/* 30-Page About & Documentation Modal */}
+      <AboutModal
+        isOpen={isAboutOpen}
+        onClose={() => setIsAboutOpen(false)}
+      />
 
       {/* Footer with Glassmorphism */}
       <div className="relative z-10">
