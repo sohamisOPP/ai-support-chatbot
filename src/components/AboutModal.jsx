@@ -69,7 +69,7 @@ export default function AboutModal({ isOpen, onClose }) {
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
-                  About SentiDesk
+                  About Soham Chatbot
                 </h3>
                 <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] sm:text-[11px] font-mono font-semibold whitespace-nowrap">
                   Page {currentPage} of 30

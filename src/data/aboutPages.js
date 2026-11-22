@@ -1,4 +1,4 @@
-// 30 Comprehensive Reference & Documentation Pages for SentiDesk AI
+// 30 Comprehensive Reference & Documentation Pages for Soham Chatbot
 // Covering Project Overview, NLP, Sentiment Analysis, CRM Escalation, Tech Stack, and Architecture
 
 export const ABOUT_PAGES = [
@@ -48,7 +48,7 @@ When an inbound message is classified as Tier-1:
 ### Financial Breakdown: Human Agent vs. AI Deflection
 Industry standard contact center metrics (Gartner / Zendesk Benchmark Reports):
 - <b>Human Agent Cost Per Ticket</b>: ~$8.50 (salary, benefits, CRM tooling, supervisor review, facilities).
-- <b>SentiDesk AI Cost Per Ticket</b>: ~$0.14 (GPU inference, serverless API execution, database storage).
+- <b>Soham Chatbot Cost Per Ticket</b>: ~$0.14 (GPU inference, serverless API execution, database storage).
 
 ### Net Monthly Savings Formula
 \\\\[
@@ -62,7 +62,7 @@ Where:
 
 For a 25,000 ticket/month contact center:
 - Traditional cost: <b>$212,500/month</b>
-- SentiDesk operational cost: <b>$62,250/month</b>
+- Soham Chatbot operational cost: <b>$62,250/month</b>
 - <b>Net Monthly Savings: $150,250/month (70.7% reduction)</b>
     `
   },
@@ -78,7 +78,7 @@ Customer Satisfaction (CSAT) deteriorates exponentially when customers wait in q
 - <b>5 to 15 minute wait</b>: 78% average CSAT rating
 - <b>> 1 hour email queue</b>: 54% average CSAT rating
 
-### SentiDesk CSAT Boosters
+### Soham Chatbot CSAT Boosters
 1. <b>Sub-Second First Response</b>: Customers receive immediate confirmation and resolution within 0.8 seconds.
 2. <b>De-escalation Empathy</b>: When anger is detected, the bot shifts tone from robotic efficiency to respectful, empathetic de-escalation.
 3. <b>Zero Repetition Handoff</b>: When routed to a human specialist, the entire conversation transcript and sentiment history are injected into the CRM ticket, preventing the customer from repeating their problem.
@@ -163,7 +163,7 @@ Harvested entities are injected into backend API payloads and CRM ticket fields,
     summary: "Global customer care in English, Spanish, French, German, Hindi, and Japanese.",
     content: `
 ### Native Multilingual Processing
-Customer support must not be limited by language barriers. SentiDesk natively handles:
+Customer support must not be limited by language barriers. Soham Chatbot natively handles:
 1. <b>English (EN)</b>: Full Tier-1 transactional and sentiment vocabulary.
 2. <b>Spanish (ES)</b>: Tailored for Latin America & Spain ("reembolso", "rastreo", "facturación").
 3. <b>French (FR)</b>: Formal French customer etiquette ("remboursement", "colis", "mot de passe").
@@ -200,7 +200,7 @@ If a customer says "Where is my order?" in turn 1, and follows up with "#ORD-849
     summary: "Scientific foundations of real-time text sentiment evaluation.",
     content: `
 ### Sentiment Analysis in Customer Service
-Traditional sentiment tools only classify text after the interaction is over. SentiDesk introduces <b>in-flight sentiment analysis</b>: assessing every single incoming sentence before generating the response.
+Traditional sentiment tools only classify text after the interaction is over. Soham Chatbot introduces <b>in-flight sentiment analysis</b>: assessing every single incoming sentence before generating the response.
 
 ### Core Metrics Tracked
 - <b>Valence / Polarity</b>: Continuous range from \`-1.00\` (extreme hostility) to \`+1.00\` (extreme delight).
@@ -320,7 +320,7 @@ When triggered, a structured payload is compiled with:
 When an escalation event fires:
 1. <b>OAuth 2.0 JWT Token Authentication</b>: Authenticates against Salesforce REST API gateway.
 2. <b>Case Creation</b>: POST to \`/services/data/v59.0/sobjects/Case/\` with:
-   - \`Subject\`: "[SentiDesk Escalation] - Billing Dispute on Order #ORD-8491"
+   - \`Subject\`: "[Soham Chatbot Escalation] - Billing Dispute on Order #ORD-8491"
    - \`Priority\`: "High" / "Critical"
    - \`Status\`: "New (Escalated from Bot)"
    - \`Sentiment_Score__c\`: "-0.85"
@@ -358,7 +358,7 @@ Integration with Zendesk's Core Ticketing API:
     summary: "Smooth transition from automated bot resolution to live human chat.",
     content: `
 ### Preventing the 'Broken Bot' Trap
-Traditional bots lock users in infinite loops. SentiDesk's takeover protocol:
+Traditional bots lock users in infinite loops. Soham Chatbot's takeover protocol:
 1. <b>Immediate De-escalation Acknowledgment</b>: The bot ceases canned responses and states: "I have detected your frustration and immediately routed this case to our senior specialist."
 2. <b>Session Handoff Lock</b>: The automated responder silences itself so it does not talk over the human agent.
 3. <b>Agent Briefing Sheet</b>: The human agent's CRM interface opens with:
@@ -390,7 +390,7 @@ Upon resolution, resolution duration is logged into PostgreSQL to calculate oper
     summary: "Backend implementation using Python, asynchronous coroutines, and FastAPI.",
     content: `
 ### Why Python 3.11 for Backend?
-Python 3.11 was selected for the SentiDesk backend for three key reasons:
+Python 3.11 was selected for the Soham Chatbot backend for three key reasons:
 1. <b>Native ML Ecosystem</b>: Seamless integration with Hugging Face Transformers, PyTorch, and NumPy.
 2. <b>FastAPI Asynchronous Gateway</b>: Built on Starlette and Pydantic, FastAPI delivers raw performance on par with Go and NodeJS:
    - Fully asynchronous request handling via \`async def\` coroutines.
@@ -515,7 +515,7 @@ On every push to the \`main\` branch, \`.github/workflows/deploy.yml\` checks ou
     summary: "Plugging in external OpenAI, Gemini, or Anthropic API endpoints.",
     content: `
 ### Modular Backend Integration
-The SentiDesk architecture is fully pluggable:
+The Soham Chatbot architecture is fully pluggable:
 - <b>Zero-Dependency Mode (Default)</b>: Runs with client-side NLP and sentiment heuristics, requiring no external paid API keys.
 - <b>OpenAI Integration</b>: Can be pointed to \`gpt-4o-mini\` via the FastAPI gateway for open-ended generative responses.
 - <b>Google Gemini Integration</b>: Native support for \`gemini-1.5-flash\` via the Google GenAI SDK for low-cost enterprise inference.

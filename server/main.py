@@ -11,7 +11,7 @@ import datetime
 import uuid
 
 app = FastAPI(
-    title="SentiDesk AI - Support & Sentiment API",
+    title="Soham Chatbot API",
     description="Tier-1 Customer Support inquiry routing with real-time sentiment analysis and CRM escalation",
     version="1.0.0"
 )
@@ -50,7 +50,7 @@ class ChatResponse(BaseModel):
 def health_check():
     return {
         "status": "online",
-        "service": "SentiDesk AI Support Gateway",
+        "service": "Soham Chatbot Support Gateway",
         "timestamp": datetime.datetime.utcnow().isoformat()
     }
 

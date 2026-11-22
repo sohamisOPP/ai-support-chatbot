@@ -176,7 +176,7 @@ export default function MetricsDashboard() {
           </div>
 
           <div className="p-4 rounded-2xl glass-card">
-            <span className="text-xs text-slate-500 block">With SentiDesk Tier-1 System</span>
+            <span className="text-xs text-slate-500 block">With Soham Chatbot System</span>
             <span className="text-xl font-bold text-blue-600 font-mono">
               ${Math.round(aiTotal).toLocaleString()}
             </span>

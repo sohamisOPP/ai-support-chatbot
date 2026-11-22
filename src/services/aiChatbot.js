@@ -5,35 +5,35 @@ import { analyzeSentiment, extractEntities, predictIntent } from './sentimentEng
 // Multilingual greeting and intent responses
 const MULTILINGUAL_RESPONSES = {
   es: {
-    greeting: "¡Hola! Soy el asistente inteligente de SentiDesk AI. ¿Cómo puedo ayudarte hoy con tu pedido, cuenta o facturación?",
+    greeting: "¡Hola! Soy el asistente inteligente de Soham Chatbot. ¿Cómo puedo ayudarte hoy con tu pedido, cuenta o facturación?",
     escalation: "Entiendo completamente tu frustración y lamento mucho este inconveniente. He transferido de inmediato este caso a nuestro equipo especializado de nivel 2 y generado un ticket prioritario en Zendesk/Salesforce.",
     refund_detected: "He localizado tu solicitud de reembolso. Para el pedido detectado, he iniciado una revisión de reembolso exprés de 24 horas sin recargo.",
     tracking_detected: "He verificado el estado de envío para tu número de rastreo. El paquete se encuentra actualmente en tránsito prioritario con entrega estimada en 24-48 horas.",
     password_reset: "He enviado de manera segura un enlace de restablecimiento de contraseña temporal a tu dirección de correo electrónico registrada."
   },
   fr: {
-    greeting: "Bonjour ! Je suis l'agent conversationnel intelligent de SentiDesk AI. Comment puis-je vous aider aujourd'hui concernant votre commande ou votre compte ?",
+    greeting: "Bonjour ! Je suis l'agent conversationnel intelligent de Soham Chatbot. Comment puis-je vous aider aujourd'hui concernant votre commande ou votre compte ?",
     escalation: "Je comprends parfaitement votre mécontentement et je vous présente nos excuses les plus sincères. J'ai immédiatement escaladé ce dossier auprès d'un responsable humain Tier-2.",
     refund_detected: "Votre demande de remboursement a bien été prise en compte. Un dossier prioritaire a été ouvert pour traitement immédiat.",
     tracking_detected: "Votre colis est actuellement en cours d'acheminement et sera livré d'ici 24 à 48 heures.",
     password_reset: "Un lien sécurisé de réinitialisation de mot de passe vient d'être expédié à votre adresse courriel."
   },
   de: {
-    greeting: "Guten Tag! Ich bin der KI-Kundensupport-Assistent von SentiDesk. Wie kann ich Ihnen heute bei Ihrer Bestellung oder Ihrem Konto behilflich sein?",
+    greeting: "Guten Tag! Ich bin der Kundensupport-Assistent von Soham Chatbot. Wie kann ich Ihnen heute bei Ihrer Bestellung oder Ihrem Konto behilflich sein?",
     escalation: "Ich verstehe Ihren Ärger vollkommen und entschuldige mich aufrichtig für die Unannehmlichkeiten. Ich habe Ihr Anliegen sofort an einen menschlichen Support-Spezialisten der Stufe 2 eskaliert.",
     refund_detected: "Ihre Rückerstattungsanfrage wurde erfasst und an unsere Finanzabteilung zur sofortigen Bearbeitung weitergeleitet.",
     tracking_detected: "Ihre Sendung befindet sich im Expressversand und wird voraussichtlich in den nächsten 1-2 Werktagen eintreffen.",
     password_reset: "Ein sicherer Link zum Zurücksetzen Ihres Passworts wurde an Ihre hinterlegte E-Mail-Adresse gesendet."
   },
   hi: {
-    greeting: "नमस्ते! मैं SentiDesk AI का वर्चुअल सपोर्ट असिस्टेंट हूँ। मैं आपके ऑर्डर, बिलिंग या अकाउंट संबंधित प्रश्नों में कैसे मदद कर सकता हूँ?",
+    greeting: "नमस्ते! मैं Soham Chatbot का वर्चुअल सपोर्ट असिस्टेंट हूँ। मैं आपके ऑर्डर, बिलिंग या अकाउंट संबंधित प्रश्नों में कैसे मदद कर सकता हूँ?",
     escalation: "आपकी परेशानी को मैं भली-भांति समझता हूँ। आपके असंतोष को देखते हुए मैंने यह मामला तुरंत हमारे सीनियर ह्यूमन सपोर्ट मैनेजर को एस्केलेट कर दिया है।",
     refund_detected: "आपके रिफंड अनुरोध को दर्ज कर लिया गया है। संबंधित राशि 24-48 घंटों के भीतर आपके मूल भुगतान स्रोत में वापस भेज दी जाएगी।",
     tracking_detected: "आपके पैकेज की ट्रैकिंग स्थिति जांच ली गई है। आपका ऑर्डर ट्रांजिट में है और जल्द ही डिलीवर कर दिया जाएगा।",
     password_reset: "आपके रजिस्टर्ड ईमेल पर सुरक्षित पासवर्ड रीसेट लिंक भेज दिया गया है।"
   },
   ja: {
-    greeting: "こんにちは！SentiDesk AIサポートエージェントです。ご注文、ご請求、アカウントに関するご質問についてお手伝いいたします。",
+    greeting: "こんにちは！Soham Chatbotサポートエージェントです。ご注文、ご請求、アカウントに関するご質問についてお手伝いいたします。",
     escalation: "大変ご迷惑をおかけして申し訳ございません。直ちにお客様の問い合わせを人間の専任サポートチーム（Tier-2）へ優先エスカレーションいたしました。",
     refund_detected: "ご返金のリクエストを受け付けました。専任担当者による返金処理が直ちに開始されます。",
     tracking_detected: "配送状況を確認いたしました。荷物は現在配送センターから配送中（配達予定：1〜2日以内）となっております。",
@@ -206,7 +206,7 @@ If there's ever anything else we can do to assist you, we're always here 24/7. W
       break;
 
     case 'FEATURE_INQUIRY':
-      replyText = `Great question! SentiDesk AI supports complete end-to-end customer support automation:
+      replyText = `Great question! Soham Chatbot supports complete end-to-end customer support automation:
 
 • **Real-Time Sentiment Monitoring**: Dynamically gauges customer frustration and emotional tone.
 • **Instant CRM Sync**: Auto-creates and syncs tickets with Zendesk, Salesforce, and Freshdesk.
@@ -217,7 +217,7 @@ Would you like to test a specific scenario or see our integration documentation?
       break;
 
     default:
-      replyText = `Hello! I'm SentiDesk's AI Customer Support Agent. 
+      replyText = `Hello! I'm Soham Chatbot, your AI Customer Support Assistant. 
 
 I can assist you with:
 • 📦 Tracking an order or shipment status

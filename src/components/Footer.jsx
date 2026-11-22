@@ -11,7 +11,7 @@ export default function Footer() {
               <Headphones className="w-4 h-4" />
             </div>
             <div>
-              <span className="font-bold text-sm text-slate-900">SentiDesk Customer Support</span>
+              <span className="font-bold text-sm text-slate-900">Soham Chatbot</span>
               <p className="text-xs text-slate-500">
                 Tier-1 Inquiries, Sentiment Detection &amp; Dynamic CRM Escalation
               </p>

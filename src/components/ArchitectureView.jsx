@@ -16,7 +16,7 @@ import uvicorn
 from sentiment_service import analyze_text_sentiment
 from crm_connector import dispatch_to_salesforce
 
-app = FastAPI(title="SentiDesk API", version="1.0.0")
+app = FastAPI(title="Soham Chatbot API", version="1.0.0")
 
 class CustomerMessage(BaseModel):
     session_id: str
@@ -115,7 +115,7 @@ class TicketRecord(Base):
     status = Column(String(32), default="OPEN")
 
 # PostgreSQL engine configuration
-DATABASE_URL = "postgresql+psycopg2://postgres:password@localhost:5432/sentidesk_db"
+DATABASE_URL = "postgresql+psycopg2://postgres:password@localhost:5432/soham_chatbot_db"
 engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
   };
 

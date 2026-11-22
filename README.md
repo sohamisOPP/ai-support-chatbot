@@ -1,4 +1,4 @@
-# Project B: AI-Powered Customer Support Chatbot with Sentiment Analysis
+# Soham Chatbot - AI-Powered Customer Support with Sentiment Analysis
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()

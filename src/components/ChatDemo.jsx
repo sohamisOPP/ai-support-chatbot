@@ -13,7 +13,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
     {
       id: 'init-1',
       sender: 'bot',
-      text: "Hello! Welcome to SentiDesk Customer Support.\n\nI can assist with order tracking, billing questions, refunds, or account access. How can I help you today?",
+      text: "Hello! Welcome to Soham Chatbot.\n\nI can assist with order tracking, billing questions, refunds, or account access. How can I help you today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       sentiment: { score: 0.1, label: 'Neutral', emotion: 'Neutral', frustrationLevel: 0 },
       intent: { label: 'General Assistance', confidence: 0.98 },
@@ -209,16 +209,16 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-9 h-9 rounded-xl bg-blue-600/90 backdrop-blur-md text-white flex items-center justify-center font-bold text-xs shadow-md shadow-blue-600/20 ring-1 ring-white/40">
-                  CS
+                  SC
                 </div>
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white" />
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Support Representative
+                  Soham Chatbot
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Automated Assistant • Active Now
+                  AI Customer Support • Active Now
                 </p>
               </div>
             </div>
@@ -240,7 +240,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
               >
                 {msg.sender === 'bot' && (
                   <div className="w-7 h-7 rounded-lg glass-pill flex-shrink-0 flex items-center justify-center text-slate-700 text-xs font-bold mt-1 shadow-xs">
-                    CS
+                    SC
                   </div>
                 )}
 
@@ -256,7 +256,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                     msg.sender === 'user' ? 'text-blue-100' : 'text-slate-400'
                   }`}>
                     <span className="font-semibold">
-                      {msg.sender === 'user' ? 'You' : 'Support Team'}
+                      {msg.sender === 'user' ? 'You' : 'Soham Chatbot'}
                     </span>
                     <span>{msg.timestamp}</span>
                   </div>
