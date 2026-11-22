@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  Cpu, Database, Layers, GitPullRequest, Server, Globe, 
-  Terminal, ShieldCheck, ArrowRight, Code2, Copy, Check
+  Cpu, Database, Layers, Server, Globe, 
+  Code2, Copy, Check
 } from 'lucide-react';
 
 export default function ArchitectureView() {
@@ -16,7 +16,7 @@ import uvicorn
 from sentiment_service import analyze_text_sentiment
 from crm_connector import dispatch_to_salesforce
 
-app = FastAPI(title="SentiDesk AI - Tier-1 Support API", version="2.0.0")
+app = FastAPI(title="SentiDesk API", version="1.0.0")
 
 class CustomerMessage(BaseModel):
     session_id: str
@@ -46,11 +46,11 @@ async def process_message(payload: CustomerMessage):
             priority="URGENT" if analysis["frustration_index"] > 80 else "HIGH"
         )
         reply = (
-            f"I have detected your frustration and immediately routed this "
-            f"inquiry to a Senior Human Specialist. CRM Ticket ID: {ticket_id}."
+            f"I have detected your frustration and routed this "
+            f"inquiry to a Senior Support Specialist. Ticket ID: {ticket_id}."
         )
     else:
-        # Tier-1 Autonomous Resolution Engine
+        # Tier-1 Autonomous Resolution
         reply = resolve_tier1_inquiry(payload.message, analysis["intent"])
 
     return AnalysisResponse(
@@ -64,7 +64,7 @@ async def process_message(payload: CustomerMessage):
     transformers: `import torch
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 
-# Load lightweight high-throughput sentiment classification model
+# Load lightweight sequence classification model
 MODEL_NAME = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
@@ -126,151 +126,131 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-fade-in">
       {/* Overview Header */}
-      <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            System Architecture
-          </span>
-          <span className="text-xs text-slate-400">
-            End-to-End Enterprise Flow
-          </span>
-        </div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">
-          Tech Stack &amp; Architectural Pipeline
+      <div className="pb-4 border-b border-slate-200">
+        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+          System Architecture &amp; Stack
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
-          Designed according to <strong>Project B Specifications</strong>: Python (FastAPI), OpenAI API &amp; Hugging Face Transformers for sentiment classification, React frontend with real-time HUD, and PostgreSQL with bidirectional Salesforce / Zendesk CRM webhooks.
+        <p className="text-sm text-slate-600 mt-0.5 max-w-3xl">
+          Complete implementation matching <strong>Project B Specifications</strong>: Python (FastAPI), Hugging Face Transformers &amp; OpenAI API, React frontend, and PostgreSQL with CRM webhooks.
         </p>
       </div>
 
-      {/* Visual Pipeline Flow Chart */}
-      <div className="p-6 rounded-3xl glass-panel border border-slate-800 space-y-6">
-        <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-          <Layers className="w-4 h-4 text-indigo-400" />
-          Interactive System Pipeline Flow
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
-          {/* Node 1: Client */}
-          <div className="p-4 rounded-2xl bg-slate-900 border border-indigo-500/30 shadow-lg relative flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase text-indigo-400">Layer 1</span>
-                <Globe className="w-4 h-4 text-indigo-400" />
-              </div>
-              <h4 className="text-sm font-bold text-white">React 18 Frontend</h4>
-              <p className="text-xs text-slate-400 mt-1">
-                Real-time sentiment speedometer HUD, interactive message stream, instant CSAT rating collector.
-              </p>
+      {/* 4 Pipeline Architecture Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-bold uppercase text-slate-400">Layer 1</span>
+              <Globe className="w-4 h-4 text-slate-500" />
             </div>
-            <div className="mt-4 pt-2 border-t border-slate-800 text-[10px] text-indigo-300 font-mono">
-              Vite • Tailwind CSS
-            </div>
+            <h4 className="text-sm font-bold text-slate-900">React Frontend</h4>
+            <p className="text-xs text-slate-500 mt-1">
+              Customer support messenger, real-time sentiment gauge, and CSAT collector.
+            </p>
           </div>
-
-          {/* Node 2: Gateway */}
-          <div className="p-4 rounded-2xl bg-slate-900 border border-purple-500/30 shadow-lg relative flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase text-purple-400">Layer 2</span>
-                <Server className="w-4 h-4 text-purple-400" />
-              </div>
-              <h4 className="text-sm font-bold text-white">FastAPI Gateway</h4>
-              <p className="text-xs text-slate-400 mt-1">
-                Async high-throughput REST &amp; WebSocket endpoint routing, session caching, rate-limiting.
-              </p>
-            </div>
-            <div className="mt-4 pt-2 border-t border-slate-800 text-[10px] text-purple-300 font-mono">
-              Python 3.11 • Uvicorn
-            </div>
+          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+            React 18 • Tailwind CSS
           </div>
+        </div>
 
-          {/* Node 3: NLP Inference */}
-          <div className="p-4 rounded-2xl bg-slate-900 border border-emerald-500/30 shadow-lg relative flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase text-emerald-400">Layer 3</span>
-                <Cpu className="w-4 h-4 text-emerald-400" />
-              </div>
-              <h4 className="text-sm font-bold text-white">NLP &amp; Sentiment Model</h4>
-              <p className="text-xs text-slate-400 mt-1">
-                Hugging Face DistilBERT fine-tuned sequence classification + OpenAI / Gemini intent extractor.
-              </p>
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-bold uppercase text-slate-400">Layer 2</span>
+              <Server className="w-4 h-4 text-slate-500" />
             </div>
-            <div className="mt-4 pt-2 border-t border-slate-800 text-[10px] text-emerald-300 font-mono">
-              PyTorch • Transformers
-            </div>
+            <h4 className="text-sm font-bold text-slate-900">FastAPI Gateway</h4>
+            <p className="text-xs text-slate-500 mt-1">
+              High-throughput async REST and WebSocket endpoints with session tracking.
+            </p>
           </div>
+          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+            Python 3.11 • Uvicorn
+          </div>
+        </div>
 
-          {/* Node 4: CRM & DB */}
-          <div className="p-4 rounded-2xl bg-slate-900 border border-amber-500/30 shadow-lg relative flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase text-amber-400">Layer 4</span>
-                <Database className="w-4 h-4 text-amber-400" />
-              </div>
-              <h4 className="text-sm font-bold text-white">PostgreSQL &amp; CRM Sync</h4>
-              <p className="text-xs text-slate-400 mt-1">
-                Stores conversation transcripts, generates tickets in Salesforce / Zendesk upon high frustration.
-              </p>
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-bold uppercase text-slate-400">Layer 3</span>
+              <Cpu className="w-4 h-4 text-slate-500" />
             </div>
-            <div className="mt-4 pt-2 border-t border-slate-800 text-[10px] text-amber-300 font-mono">
-              PostgreSQL • REST Webhooks
+            <h4 className="text-sm font-bold text-slate-900">Sentiment &amp; NLP Model</h4>
+            <p className="text-xs text-slate-500 mt-1">
+              DistilBERT sequence classification and intent/entity extraction.
+            </p>
+          </div>
+          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+            PyTorch • Transformers
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-bold uppercase text-slate-400">Layer 4</span>
+              <Database className="w-4 h-4 text-slate-500" />
             </div>
+            <h4 className="text-sm font-bold text-slate-900">PostgreSQL &amp; CRM Sync</h4>
+            <p className="text-xs text-slate-500 mt-1">
+              Stores transcripts, dispatches tickets to Zendesk &amp; Salesforce.
+            </p>
+          </div>
+          <div className="mt-4 pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+            PostgreSQL • REST Webhooks
           </div>
         </div>
       </div>
 
       {/* Code Viewer */}
-      <div className="rounded-3xl glass-panel border border-slate-800 overflow-hidden shadow-2xl">
-        <div className="p-4 bg-slate-900/90 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-sm">
+        <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-indigo-400" />
-            <span className="text-xs font-bold text-white uppercase tracking-wider">
-              Production Code Implementation
+            <Code2 className="w-4 h-4 text-slate-400" />
+            <span className="text-xs font-semibold text-slate-200">
+              Backend Source Code
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Tabs */}
-            <div className="flex items-center bg-slate-800/80 p-1 rounded-xl border border-slate-700/60">
+            <div className="flex items-center bg-slate-900 p-0.5 rounded-lg border border-slate-700 text-xs font-mono">
               <button
                 onClick={() => setActiveCodeTab('fastapi')}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all ${
+                className={`px-3 py-1 rounded-md transition-colors ${
                   activeCodeTab === 'fastapi'
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                FastAPI Gateway
+                fastapi_server.py
               </button>
               <button
                 onClick={() => setActiveCodeTab('transformers')}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all ${
+                className={`px-3 py-1 rounded-md transition-colors ${
                   activeCodeTab === 'transformers'
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                Hugging Face Pipeline
+                sentiment_model.py
               </button>
               <button
                 onClick={() => setActiveCodeTab('database')}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all ${
+                className={`px-3 py-1 rounded-md transition-colors ${
                   activeCodeTab === 'database'
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-slate-700 text-white font-semibold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                PostgreSQL Schema
+                database_models.py
               </button>
             </div>
 
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1 transition-all"
+              className="p-1.5 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs flex items-center gap-1 transition-colors"
               title="Copy code"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -278,8 +258,8 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
           </div>
         </div>
 
-        {/* Code Block */}
-        <div className="p-4 bg-[#070b14] overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
+        {/* Code Content */}
+        <div className="p-4 bg-slate-950 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
           <pre>{codeSnippets[activeCodeTab]}</pre>
         </div>
       </div>

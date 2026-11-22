@@ -20,12 +20,12 @@ export default function App() {
       sentiment: 'Very Negative',
       frustrationScore: 89,
       priority: 'Urgent',
-      source: 'AI Live Chat Escalation',
+      source: 'Support Chat Escalation',
       reason: 'Double charge dispute on Order #ORD-4491 ($120.00)',
       timestamp: '10:14 AM',
       status: 'Open',
       crmSystem: 'Salesforce Service Cloud',
-      transcriptSnippet: "I was double charged $120.00 on Order #ORD-4491! This is ridiculous, refund my money right now!"
+      transcriptSnippet: "I was double charged $120.00 on Order #ORD-4491! This is unacceptable, refund my money immediately!"
     },
     {
       id: 'TKT-773194',
@@ -34,7 +34,7 @@ export default function App() {
       sentiment: 'Negative',
       frustrationScore: 68,
       priority: 'High',
-      source: 'AI Live Chat Escalation',
+      source: 'Support Chat Escalation',
       reason: 'Delivery delayed > 5 days without carrier update',
       timestamp: '09:42 AM',
       status: 'In Progress',
@@ -60,13 +60,13 @@ export default function App() {
   const handleTicketCreated = (newTicket) => {
     setTickets(prev => [newTicket, ...prev]);
     setNotification({
-      title: '🚨 Dynamic Escalation Triggered!',
-      message: `Ticket ${newTicket.id} logged in CRM (${newTicket.priority} Priority). Frustration score: ${newTicket.frustrationScore}%`
+      title: 'Ticket Escalated to Human Support',
+      message: `Ticket ${newTicket.id} assigned to Tier-2 queue (${newTicket.priority} Priority).`
     });
 
     setTimeout(() => {
       setNotification(null);
-    }, 6000);
+    }, 5000);
   };
 
   const handleResolveTicket = (ticketId) => {
@@ -79,40 +79,40 @@ export default function App() {
     const randomId = `TKT-${Math.floor(100000 + Math.random() * 900000)}`;
     const sample = {
       id: randomId,
-      customer: 'David Chen (VIP Client)',
-      intent: 'Technical Bug & Outage',
+      customer: 'David Chen (Corporate Client)',
+      intent: 'Technical Outage',
       sentiment: 'Very Negative',
       frustrationScore: 92,
       priority: 'Urgent',
-      source: 'AI Real-Time Sentiment Trigger',
-      reason: 'Production API 500 error during high traffic launch',
+      source: 'Urgency Threshold Trigger',
+      reason: 'Production API 500 error during high traffic period',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       status: 'Open',
       crmSystem: 'Zendesk Support',
-      transcriptSnippet: "Our checkout API returned 500 internal server errors. We are losing transactions every minute!"
+      transcriptSnippet: "Our checkout API returned 500 internal server errors. We need senior engineering assistance."
     };
     handleTicketCreated(sample);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d18] text-slate-100">
-      {/* Dynamic Escalation Floating Toast Notification */}
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      {/* Subtle, clean notification toast */}
       {notification && (
-        <div className="fixed top-20 right-6 z-50 animate-slide-up max-w-md p-4 rounded-2xl bg-rose-950/90 border border-rose-500/50 shadow-2xl backdrop-blur-xl text-rose-200">
+        <div className="fixed top-20 right-6 z-50 animate-fade-in max-w-sm p-4 rounded-xl bg-white border border-red-200 shadow-lg text-slate-800">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="font-bold text-xs uppercase tracking-wider text-rose-400">
+              <div className="font-semibold text-xs text-red-700">
                 {notification.title}
               </div>
-              <div className="text-xs text-rose-100 mt-1">
+              <div className="text-xs text-slate-600 mt-0.5">
                 {notification.message}
               </div>
             </div>
             <button
               onClick={() => setActiveTab('crm')}
-              className="px-2.5 py-1 rounded-lg bg-rose-500/30 hover:bg-rose-500/50 text-[11px] font-semibold text-white whitespace-nowrap transition-all"
+              className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[11px] font-semibold text-slate-800 whitespace-nowrap transition-colors"
             >
-              View Ticket →
+              View →
             </button>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function App() {
         setActiveTab={setActiveTab}
       />
 
-      {/* Tab Views */}
+      {/* Main View Area */}
       <main className="flex-1">
         {activeTab === 'demo' && (
           <ChatDemo
