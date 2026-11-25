@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Send, User, RefreshCw, AlertCircle, CheckCircle2, 
-  Tag, ArrowRight, Star, Headphones
+  Tag, ArrowRight, Star
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import SentimentMeter from './SentimentMeter';
@@ -42,7 +42,6 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
     }
   }, [inputText]);
 
-  // Clean, factual test cases without emojis or exclamation marks
   const testScenarios = [
     {
       label: 'Billing dispute',
@@ -147,106 +146,113 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
     (messages.length > 1 ? messages[messages.length - 1].sentiment : messages[0].sentiment);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-4 sm:space-y-6">
       {/* Page Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 shadow-sm">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Support console
             </span>
             <span className="text-slate-300">•</span>
-            <span className="text-xs text-slate-500">Tier-1 automated triage</span>
+            <span className="text-[11px] sm:text-xs text-slate-500">Tier-1 automated triage</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
             Customer Support Center
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
-            Simulate real customer inquiries to evaluate intent extraction, sentiment scoring, and automatic ticket escalation to Zendesk and Salesforce.
+            Simulate customer inquiries to test intent extraction, live sentiment scoring, and automatic CRM escalation.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="grid grid-cols-2 sm:flex items-center gap-2 flex-shrink-0 w-full md:w-auto">
           <button
             onClick={handleResetChat}
-            className="px-3 py-2 rounded-lg text-xs font-medium bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 flex items-center gap-1.5 transition-colors"
+            className="px-3 py-2 rounded-lg text-xs font-medium bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 flex items-center justify-center gap-1.5 transition-colors"
           >
-            <RefreshCw className="w-3.5 h-3.5 text-slate-400" /> Reset chat
+            <RefreshCw className="w-3.5 h-3.5 text-slate-400" />
+            <span>Reset chat</span>
           </button>
           <button
             onClick={onNavigateToCrm}
-            className="px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white flex items-center gap-1.5 transition-colors shadow-xs"
+            className="px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-1.5 transition-colors shadow-sm"
           >
-            Ticket queue <ArrowRight className="w-3.5 h-3.5" />
+            <span>Ticket queue</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Preset Test Queries */}
+      {/* Preset Test Queries: Horizontal swipeable strip on phone, 5-column grid on desktop */}
       <div className="space-y-2">
-        <span className="text-xs font-medium text-slate-500">
-          Sample customer scenarios
-        </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-slate-500">
+            Sample customer scenarios
+          </span>
+          <span className="text-[11px] text-slate-400 sm:hidden">
+            Swipe for more
+          </span>
+        </div>
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-2 overflow-x-auto pb-1 -mx-3 px-3 sm:mx-0 sm:px-0 snap-x">
           {testScenarios.map((sc, idx) => (
             <button
               key={idx}
               onClick={() => handleSendMessage(sc.text)}
-              className="p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-left transition-colors flex flex-col justify-between"
+              className="flex-shrink-0 w-[195px] sm:w-auto snap-start p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 active:bg-slate-100 text-left transition-colors flex flex-col justify-between shadow-sm"
             >
-              <span className="text-xs font-medium text-slate-900">{sc.label}</span>
-              <span className="text-[11px] text-slate-500 mt-1 truncate">{sc.detail}</span>
+              <span className="text-xs font-semibold text-slate-900">{sc.label}</span>
+              <span className="text-[11px] text-slate-500 mt-1 truncate w-full">{sc.detail}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Main Workbench: Messenger + Sentiment Inspector */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Messenger Container */}
-        <div className="lg:col-span-2 flex flex-col h-[620px] rounded-xl bg-white border border-slate-200 shadow-xs overflow-hidden">
+        <div className="lg:col-span-2 flex flex-col h-[470px] sm:h-[580px] lg:h-[620px] rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
           {/* Chat Header */}
-          <div className="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-medium text-xs">
+          <div className="px-4 sm:px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-medium text-xs flex-shrink-0">
                 SC
               </div>
-              <div>
-                <h3 className="text-sm font-semibold text-slate-900 leading-tight">
+              <div className="min-w-0">
+                <h3 className="text-sm font-semibold text-slate-900 leading-tight truncate">
                   Soham Chatbot
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 truncate">
                   Tier-1 automated support
                 </p>
               </div>
             </div>
 
-            <div className="text-xs text-slate-500 flex items-center gap-1.5">
+            <div className="text-xs text-slate-500 flex items-center gap-1.5 flex-shrink-0 font-mono tabular-nums">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span>Latency: 0.8s</span>
+              <span>0.8s</span>
             </div>
           </div>
 
           {/* Message Stream */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50/50">
+          <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-3.5 sm:space-y-4 bg-slate-50/50">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex gap-3 animate-enter ${
+                className={`flex gap-2.5 sm:gap-3 animate-enter ${
                   msg.sender === 'user' ? 'justify-end' : 'justify-start'
                 }`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-md bg-slate-200 flex-shrink-0 flex items-center justify-center text-slate-700 text-xs font-medium mt-1">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-slate-200 flex-shrink-0 flex items-center justify-center text-slate-700 text-[11px] sm:text-xs font-medium mt-1">
                     SC
                   </div>
                 )}
 
                 <div
-                  className={`max-w-[85%] sm:max-w-[78%] rounded-xl p-4 text-xs sm:text-sm leading-relaxed ${
+                  className={`max-w-[86%] sm:max-w-[78%] rounded-xl p-3 sm:p-4 text-xs sm:text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-slate-900 text-white rounded-tr-none shadow-xs'
-                      : 'bg-white text-slate-900 border border-slate-200 rounded-tl-none shadow-xs'
+                      ? 'bg-slate-900 text-white rounded-tr-none shadow-sm'
+                      : 'bg-white text-slate-900 border border-slate-200 rounded-tl-none shadow-sm'
                   }`}
                 >
                   <div className={`flex items-center justify-between gap-3 mb-1 text-[11px] ${
@@ -258,7 +264,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                     <span className="tabular-nums">{msg.timestamp}</span>
                   </div>
 
-                  <div className="whitespace-pre-line space-y-1">
+                  <div className="whitespace-pre-line space-y-1 break-words">
                     {msg.text.split('\n').map((line, i) => {
                       const cleanLine = line.replaceAll('*', '');
                       return <div key={i}>{cleanLine}</div>;
@@ -285,9 +291,9 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                       {msg.entities.map((ent, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-[11px] font-mono flex items-center gap-1"
+                          className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-[11px] font-mono flex items-center gap-1 break-all"
                         >
-                          <Tag className="w-3 h-3 text-slate-400" />
+                          <Tag className="w-3 h-3 text-slate-400 flex-shrink-0" />
                           <span>{ent.label}: {ent.value}</span>
                         </span>
                       ))}
@@ -297,21 +303,21 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                   {/* Ticket Escalation Notice */}
                   {msg.ticketCreated && (
                     <div className="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-slate-900 text-xs">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1">
                         <span className="font-semibold text-amber-900 flex items-center gap-1.5">
-                          <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
-                          Escalated to human tier-2 support
+                          <AlertCircle className="w-3.5 h-3.5 text-amber-700 flex-shrink-0" />
+                          <span>Escalated to Tier-2</span>
                         </span>
                         <span className="px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 text-[10px] font-semibold uppercase">
-                          {msg.ticketCreated.priority} priority
+                          {msg.ticketCreated.priority}
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-700 mb-2">
-                        Ticket ID <span className="font-mono font-semibold text-slate-900">{msg.ticketCreated.id}</span> dispatched to Zendesk and Salesforce queue.
+                        Ticket <span className="font-mono font-semibold text-slate-900">{msg.ticketCreated.id}</span> logged to CRM queue.
                       </p>
                       <button
                         onClick={onNavigateToCrm}
-                        className="w-full py-1.5 rounded bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-[11px] font-medium flex items-center justify-center gap-1 transition-colors"
+                        className="w-full py-2 rounded bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-medium flex items-center justify-center gap-1 transition-colors"
                       >
                         Inspect in CRM queue <ArrowRight className="w-3 h-3" />
                       </button>
@@ -320,7 +326,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                 </div>
 
                 {msg.sender === 'user' && (
-                  <div className="w-7 h-7 rounded-md bg-slate-800 text-white flex-shrink-0 flex items-center justify-center text-xs font-medium mt-1">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-slate-800 text-white flex-shrink-0 flex items-center justify-center text-xs font-medium mt-1">
                     <User className="w-3.5 h-3.5 text-slate-300" />
                   </div>
                 )}
@@ -328,8 +334,8 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
             ))}
 
             {isTyping && (
-              <div className="flex gap-3 animate-enter items-center">
-                <div className="w-7 h-7 rounded-md bg-slate-200 flex items-center justify-center text-slate-600 text-xs font-medium">
+              <div className="flex gap-2.5 sm:gap-3 animate-enter items-center">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-slate-200 flex items-center justify-center text-slate-600 text-[11px] sm:text-xs font-medium">
                   SC
                 </div>
                 <div className="bg-white rounded-lg px-3.5 py-2 border border-slate-200 text-xs text-slate-500">
@@ -343,11 +349,11 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
 
           {/* CSAT Survey */}
           {messages.length >= 3 && !csatSubmitted && (
-            <div className="px-5 py-2.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
+            <div className="px-3.5 sm:px-5 py-2.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
               <span className="text-slate-600 font-medium">
-                Rate this resolution experience
+                Rate this experience
               </span>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
@@ -356,10 +362,10 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                       setCsatSubmitted(true);
                       confetti({ particleCount: 25, spread: 45, origin: { y: 0.9 } });
                     }}
-                    className="p-1 text-slate-400 hover:text-amber-500 transition-colors"
+                    className="p-1.5 text-slate-400 hover:text-amber-500 transition-colors"
                     title={`${star} stars`}
                   >
-                    <Star className={`w-3.5 h-3.5 ${csatRating >= star ? 'text-amber-500 fill-amber-500' : ''}`} />
+                    <Star className={`w-4 h-4 ${csatRating >= star ? 'text-amber-500 fill-amber-500' : ''}`} />
                   </button>
                 ))}
               </div>
@@ -367,14 +373,14 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
           )}
 
           {csatSubmitted && (
-            <div className="px-5 py-2 bg-emerald-50 border-t border-emerald-200 flex items-center gap-2 text-xs text-emerald-800">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Feedback recorded ({csatRating}/5 stars) in PostgreSQL metrics.</span>
+            <div className="px-3.5 sm:px-5 py-2 bg-emerald-50 border-t border-emerald-200 flex items-center gap-2 text-xs text-emerald-800">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+              <span>Feedback recorded ({csatRating}/5 stars) in metrics.</span>
             </div>
           )}
 
-          {/* Input Form */}
-          <div className="p-3 bg-white border-t border-slate-200">
+          {/* Input Form (16px font on mobile prevents iOS Safari auto-zoom) */}
+          <div className="p-2.5 sm:p-3 bg-white border-t border-slate-200">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -386,15 +392,15 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Type an inquiry, order number (#ORD-8491), or describe the issue"
-                className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm border border-slate-200 focus:outline-none focus:border-slate-900 focus:bg-white transition-colors"
+                placeholder="Type an inquiry or #ORD-8491..."
+                className="flex-1 min-w-0 bg-slate-50 text-slate-900 placeholder-slate-400 rounded-lg px-3 py-2 text-base sm:text-sm border border-slate-200 focus:outline-none focus:border-slate-900 focus:bg-white transition-colors"
               />
               <button
                 type="submit"
                 disabled={!inputText.trim() || isTyping}
-                className="px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
+                className="px-3.5 sm:px-4 min-h-[42px] rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors flex-shrink-0"
               >
-                <span>Send</span>
+                <span className="hidden min-[360px]:inline">Send</span>
                 <Send className="w-3.5 h-3.5" />
               </button>
             </form>
@@ -406,7 +412,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
           <SentimentMeter sentiment={currentSentiment} />
 
           {/* Extracted Details & Policy */}
-          <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
+          <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-5 space-y-4 shadow-sm">
             <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider pb-2 border-b border-slate-100">
               Conversation telemetry
             </h4>
@@ -421,7 +427,7 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                     {messages.flatMap(m => m.entities || []).slice(-5).map((ent, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-xs font-mono"
+                        className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-xs font-mono break-all"
                       >
                         {ent.label}: {ent.value}
                       </span>
@@ -438,17 +444,17 @@ export default function ChatDemo({ language, onTicketCreated, onNavigateToCrm })
                 <span className="text-[11px] text-slate-500 block mb-1">
                   Escalation triggers
                 </span>
-                <ul className="text-xs space-y-1 text-slate-600">
+                <ul className="text-xs space-y-1.5 text-slate-600">
                   <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
                     <span>Frustration index ≥ 70%</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
                     <span>Legal or fraud terminology</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
                     <span>Standard Tier-1 resolution</span>
                   </li>
                 </ul>

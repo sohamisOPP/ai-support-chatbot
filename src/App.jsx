@@ -100,19 +100,19 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-900 font-sans selection:bg-slate-900 selection:text-white">
       {/* Toast Notification - Quiet, crisp enterprise notification */}
       {notification && (
-        <div className="fixed top-18 right-6 z-50 animate-enter max-w-sm p-3.5 rounded-lg bg-white border border-slate-200 shadow-md text-slate-900">
+        <div className="fixed top-[112px] sm:top-20 left-3 right-3 sm:left-auto sm:right-6 z-50 animate-enter sm:max-w-sm p-3.5 rounded-lg bg-white border border-slate-200 shadow-md text-slate-900">
           <div className="flex items-start justify-between gap-3">
-            <div>
+            <div className="min-w-0">
               <div className="font-semibold text-xs text-slate-900">
                 {notification.title}
               </div>
-              <div className="text-xs text-slate-600 mt-0.5">
+              <div className="text-xs text-slate-600 mt-0.5 break-words">
                 {notification.message}
               </div>
             </div>
             <button
               onClick={() => setActiveTab('crm')}
-              className="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[11px] font-medium text-slate-800 transition-colors"
+              className="px-2.5 py-1.5 rounded bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-800 transition-colors flex-shrink-0"
             >
               View
             </button>
@@ -126,6 +126,7 @@ export default function App() {
         setLanguage={setLanguage}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        openTicketCount={tickets.filter(t => t.status !== 'Resolved').length}
         onOpenAbout={() => setIsAboutOpen(true)}
       />
 

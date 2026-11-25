@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  CheckCircle, Clock, Search, Building, ArrowUpRight, X, AlertCircle
+  CheckCircle, Clock, Search, X
 } from 'lucide-react';
 
 export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTicket }) {
@@ -23,20 +23,20 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-4 sm:space-y-6">
       {/* Top Banner */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 shadow-sm">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">
               CRM Integration
             </span>
             <span className="text-slate-300">•</span>
-            <span className="text-xs text-slate-500">
-              Synchronized with Salesforce Service Cloud &amp; Zendesk
+            <span className="text-[11px] sm:text-xs text-slate-500">
+              Salesforce Service Cloud &amp; Zendesk
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
             Escalated Ticket Queue
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
@@ -47,7 +47,7 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={onAddSampleTicket}
-            className="px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-xs"
+            className="w-full sm:w-auto px-3.5 py-2.5 sm:py-2 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-sm"
           >
             Create test ticket
           </button>
@@ -62,12 +62,12 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search tickets by ID, customer name, or issue"
-            className="w-full bg-white text-slate-900 placeholder-slate-400 pl-10 pr-4 py-2 rounded-lg text-xs border border-slate-200 focus:outline-none focus:border-slate-900 transition-colors shadow-xs"
+            placeholder="Search tickets by ID, customer, or issue"
+            className="w-full bg-white text-slate-900 placeholder-slate-400 pl-10 pr-4 py-2 rounded-lg text-base sm:text-xs border border-slate-200 focus:outline-none focus:border-slate-900 transition-colors shadow-sm"
           />
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-xs text-slate-500 font-medium mr-1">Priority:</span>
           {['ALL', 'Urgent', 'High', 'Medium'].map((p) => (
             <button
@@ -85,8 +85,101 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
         </div>
       </div>
 
-      {/* Tickets Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+      {/* Mobile Card List (Zero horizontal scrolling on phones) */}
+      <div className="md:hidden space-y-3">
+        {filtered.map((t) => (
+          <div
+            key={t.id}
+            onClick={() => setSelectedTicket(t)}
+            className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-3 active:bg-slate-50 transition-colors"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs font-semibold text-slate-900 tabular-nums">
+                {t.id}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span
+                  className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider border ${
+                    t.priority === 'Urgent'
+                      ? 'bg-rose-100 text-rose-800 border-rose-200'
+                      : t.priority === 'High'
+                      ? 'bg-amber-100 text-amber-800 border-amber-200'
+                      : 'bg-slate-100 text-slate-700 border-slate-200'
+                  }`}
+                >
+                  {t.priority}
+                </span>
+                <span
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium ${
+                    t.status === 'Resolved'
+                      ? 'text-emerald-800 bg-emerald-50 border border-emerald-200'
+                      : 'text-amber-800 bg-amber-50 border border-amber-200'
+                  }`}
+                >
+                  {t.status === 'Resolved' ? (
+                    <CheckCircle className="w-3 h-3 text-emerald-600" />
+                  ) : (
+                    <Clock className="w-3 h-3 text-amber-600" />
+                  )}
+                  {t.status}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-baseline justify-between gap-2">
+                <h3 className="text-sm font-semibold text-slate-900">{t.customer}</h3>
+                <span className="text-[11px] text-slate-400">{t.timestamp}</span>
+              </div>
+              <p className="text-xs font-medium text-slate-600 mt-0.5">{t.intent}</p>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2">
+                {t.reason || 'Escalated by customer inquiry'}
+              </p>
+            </div>
+
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+              <span
+                className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium border ${
+                  t.sentiment === 'Very Negative' || t.sentiment === 'Angry' || t.frustrationScore >= 70
+                    ? 'bg-rose-50 text-rose-700 border-rose-200'
+                    : t.sentiment === 'Negative' || t.sentiment === 'Frustrated' || t.frustrationScore >= 40
+                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                    : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                }`}
+              >
+                {t.frustrationScore}% urgency
+              </span>
+
+              <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                {t.status !== 'Resolved' ? (
+                  <button
+                    onClick={() => handleResolve(t.id)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition-colors"
+                  >
+                    Resolve
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setSelectedTicket(t)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium"
+                  >
+                    Details
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {filtered.length === 0 && (
+          <div className="bg-white rounded-xl border border-slate-200 py-10 text-center text-slate-400 text-xs">
+            No matching tickets found in queue.
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Tickets Table */}
+      <div className="hidden md:block bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-600">
             <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-500 font-semibold border-b border-slate-200">
@@ -166,7 +259,7 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
                     {t.status !== 'Resolved' ? (
                       <button
                         onClick={() => handleResolve(t.id)}
-                        className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs font-medium transition-colors shadow-2xs"
+                        className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs font-medium transition-colors shadow-sm"
                       >
                         Resolve
                       </button>
@@ -189,8 +282,8 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
 
       {/* Ticket Details Modal */}
       {selectedTicket && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-xl space-y-4 border border-slate-200">
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-xl space-y-4 border border-slate-200">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <span className="text-xs font-mono font-semibold text-slate-500">
@@ -202,7 +295,7 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
               </div>
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="text-slate-400 hover:text-slate-700 p-1 rounded-md"
+                className="text-slate-400 hover:text-slate-700 p-1.5 rounded-md"
                 title="Close"
               >
                 <X className="w-4 h-4" />
@@ -210,7 +303,7 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-2.5 p-3.5 bg-slate-50 border border-slate-200/80 rounded-lg">
+              <div className="grid grid-cols-2 gap-2.5 p-3 sm:p-3.5 bg-slate-50 border border-slate-200/80 rounded-lg">
                 <div>
                   <span className="text-slate-500 block text-[10px] uppercase font-semibold">Category</span>
                   <span className="font-semibold text-slate-900">{selectedTicket.intent}</span>
@@ -259,7 +352,7 @@ export default function CrmDashboard({ tickets, onResolveTicket, onAddSampleTick
                     handleResolve(selectedTicket.id);
                     setSelectedTicket(null);
                   }}
-                  className="px-3.5 py-2 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-xs"
+                  className="px-3.5 py-2 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm"
                 >
                   Mark resolved
                 </button>

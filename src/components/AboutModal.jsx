@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  BookOpen, ChevronLeft, ChevronRight, X, Search
+  BookOpen, ChevronLeft, ChevronRight, X, Search, List
 } from 'lucide-react';
 import { ABOUT_PAGES } from '../data/aboutPages';
 
 export default function AboutModal({ isOpen, onClose }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showMobileToc, setShowMobileToc] = useState(false);
 
   // Keyboard navigation (Arrow keys + Esc)
   useEffect(() => {
@@ -56,21 +57,104 @@ export default function AboutModal({ isOpen, onClose }) {
       )
     : null;
 
+  const renderTocContent = () => (
+    <>
+      {/* Search Bar */}
+      <div className="p-3 border-b border-slate-200">
+        <div className="relative">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search 30 pages..."
+            className="w-full bg-white border border-slate-200 text-slate-900 placeholder-slate-400 pl-8 pr-2.5 py-1.5 rounded-md text-base sm:text-xs focus:outline-none focus:border-slate-900 transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* TOC Page List */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-4">
+        {filteredPages ? (
+          <div>
+            <span className="text-[10px] uppercase font-bold text-slate-400 px-2 block mb-1">
+              Search results ({filteredPages.length})
+            </span>
+            <div className="space-y-0.5">
+              {filteredPages.map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => {
+                    setCurrentPage(p.id);
+                    setSearchTerm('');
+                    setShowMobileToc(false);
+                  }}
+                  className={`w-full text-left px-2.5 py-2 sm:py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 ${
+                    currentPage === p.id
+                      ? 'bg-slate-900 text-white font-medium'
+                      : 'hover:bg-slate-200/60 text-slate-700'
+                  }`}
+                >
+                  <span className="font-mono text-[10px] opacity-75">#{p.id}</span>
+                  <span className="truncate">{sanitize(p.title)}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          categories.map((cat, idx) => (
+            <div key={idx} className="space-y-1">
+              <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider px-2 block">
+                {cat.name}
+              </span>
+              <div className="space-y-0.5">
+                {cat.pages.map((p) => (
+                  <button
+                    key={p.id}
+                    onClick={() => {
+                      setCurrentPage(p.id);
+                      setShowMobileToc(false);
+                    }}
+                    className={`w-full text-left px-2.5 py-2 sm:py-1.5 rounded-md text-xs transition-colors flex items-center justify-between ${
+                      currentPage === p.id
+                        ? 'bg-slate-900 text-white font-medium'
+                        : 'hover:bg-slate-200/60 text-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 truncate">
+                      <span className="font-mono text-[10px] opacity-70">
+                        {p.id.toString().padStart(2, '0')}
+                      </span>
+                      <span className="truncate">{sanitize(p.title)}</span>
+                    </div>
+                    {currentPage === p.id && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-white flex-shrink-0" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </>
+  );
+
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-2 sm:p-6 animate-enter">
-      <div className="bg-white w-full max-w-5xl h-[94vh] sm:h-[88vh] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-6 animate-enter">
+      <div className="bg-white w-full max-w-5xl h-[92vh] sm:h-[88vh] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
         {/* Top Header */}
-        <div className="px-4 sm:px-6 py-3 bg-white border-b border-slate-200 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center flex-shrink-0">
-              <BookOpen className="w-4 h-4 text-slate-200" />
+        <div className="px-3.5 sm:px-6 py-3 bg-white border-b border-slate-200 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center flex-shrink-0">
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-200" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">
                   About Soham Chatbot
                 </h3>
-                <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono font-medium border border-slate-200 whitespace-nowrap">
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono font-medium border border-slate-200 whitespace-nowrap">
                   Page {currentPage} of 30
                 </span>
               </div>
@@ -80,14 +164,28 @@ export default function AboutModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Jump to page select */}
-            <div className="flex items-center rounded-lg px-2 py-1 text-xs border border-slate-200 bg-white">
-              <span className="text-slate-500 mr-1.5 font-medium hidden sm:inline">Jump:</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+            {/* Mobile Contents & Search Toggle */}
+            <button
+              onClick={() => setShowMobileToc((v) => !v)}
+              className={`md:hidden px-2.5 py-1.5 rounded-lg border text-xs font-medium flex items-center gap-1 transition-colors ${
+                showMobileToc
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+              title="Browse 30 topics & search"
+            >
+              <List className="w-3.5 h-3.5" />
+              <span>{showMobileToc ? 'Reader' : 'Topics'}</span>
+            </button>
+
+            {/* Desktop Jump select */}
+            <div className="hidden sm:flex items-center rounded-lg px-2 py-1 text-xs border border-slate-200 bg-white">
+              <span className="text-slate-500 mr-1.5 font-medium">Jump:</span>
               <select
                 value={currentPage}
                 onChange={(e) => setCurrentPage(Number(e.target.value))}
-                className="bg-transparent text-slate-800 font-medium text-xs focus:outline-none cursor-pointer pr-1"
+                className="bg-transparent text-slate-800 font-medium text-xs focus:outline-none cursor-pointer pr-1 max-w-[180px]"
                 title="Select page"
               >
                 {ABOUT_PAGES.map((p) => (
@@ -111,86 +209,20 @@ export default function AboutModal({ isOpen, onClose }) {
 
         {/* Main Content Area: Sidebar + Reader */}
         <div className="flex-1 flex overflow-hidden">
+          {/* Mobile TOC + Search Drawer */}
+          {showMobileToc && (
+            <aside className="w-full bg-slate-50 flex flex-col md:hidden overflow-hidden">
+              {renderTocContent()}
+            </aside>
+          )}
+
           {/* Table of Contents Sidebar (Desktop) */}
           <aside className="w-68 border-r border-slate-200 bg-slate-50/70 hidden md:flex flex-col">
-            {/* Search Bar */}
-            <div className="p-3 border-b border-slate-200">
-              <div className="relative">
-                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search 30 pages..."
-                  className="w-full bg-white border border-slate-200 text-slate-900 placeholder-slate-400 pl-8 pr-2.5 py-1.5 rounded-md text-xs focus:outline-none focus:border-slate-900 transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* TOC Page List */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-4">
-              {filteredPages ? (
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 px-2 block mb-1">
-                    Search results ({filteredPages.length})
-                  </span>
-                  <div className="space-y-0.5">
-                    {filteredPages.map((p) => (
-                      <button
-                        key={p.id}
-                        onClick={() => {
-                          setCurrentPage(p.id);
-                          setSearchTerm('');
-                        }}
-                        className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 ${
-                          currentPage === p.id
-                            ? 'bg-slate-900 text-white font-medium'
-                            : 'hover:bg-slate-200/60 text-slate-700'
-                        }`}
-                      >
-                        <span className="font-mono text-[10px] opacity-75">#{p.id}</span>
-                        <span className="truncate">{sanitize(p.title)}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                categories.map((cat, idx) => (
-                  <div key={idx} className="space-y-1">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider px-2 block">
-                      {cat.name}
-                    </span>
-                    <div className="space-y-0.5">
-                      {cat.pages.map((p) => (
-                        <button
-                          key={p.id}
-                          onClick={() => setCurrentPage(p.id)}
-                          className={`w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center justify-between ${
-                            currentPage === p.id
-                              ? 'bg-slate-900 text-white font-medium'
-                              : 'hover:bg-slate-200/60 text-slate-700'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 truncate">
-                            <span className="font-mono text-[10px] opacity-70">
-                              {p.id.toString().padStart(2, '0')}
-                            </span>
-                            <span className="truncate">{sanitize(p.title)}</span>
-                          </div>
-                          {currentPage === p.id && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-white flex-shrink-0" />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+            {renderTocContent()}
           </aside>
 
           {/* Reader Body */}
-          <main className="flex-1 overflow-y-auto p-4 sm:p-8 bg-white flex flex-col justify-between">
+          <main className={`flex-1 overflow-y-auto p-4 sm:p-8 bg-white flex flex-col justify-between ${showMobileToc ? 'hidden md:flex' : 'flex'}`}>
             <div className="max-w-3xl space-y-4 sm:space-y-5 animate-enter" key={activePageData.id}>
               {/* Category & Page Badge */}
               <div className="flex items-center justify-between gap-2">
@@ -203,7 +235,7 @@ export default function AboutModal({ isOpen, onClose }) {
               </div>
 
               {/* Title without any asterisks */}
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
                 {sanitize(activePageData.title)}
               </h2>
 
@@ -271,19 +303,22 @@ export default function AboutModal({ isOpen, onClose }) {
         </div>
 
         {/* Bottom Pagination Bar */}
-        <div className="px-4 sm:px-6 py-3 bg-white border-t border-slate-200 flex items-center justify-between gap-3">
+        <div className="px-3.5 sm:px-6 py-2.5 sm:py-3 bg-white border-t border-slate-200 flex items-center justify-between gap-2 sm:gap-3">
           {/* Previous Button */}
           <button
-            onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+            onClick={() => {
+              setCurrentPage((prev) => Math.max(1, prev - 1));
+              setShowMobileToc(false);
+            }}
             disabled={currentPage === 1}
-            className="px-3 sm:px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none text-xs font-medium text-slate-800 flex items-center gap-1 transition-colors flex-shrink-0"
+            className="px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none text-xs font-medium text-slate-800 flex items-center gap-1 transition-colors flex-shrink-0"
           >
             <ChevronLeft className="w-4 h-4" />
-            <span>Previous</span>
+            <span>Prev</span>
           </button>
 
           {/* Progress bar & indicator */}
-          <div className="flex-1 max-w-xs flex items-center gap-2 sm:gap-3 mx-2">
+          <div className="flex-1 max-w-xs flex items-center gap-2 sm:gap-3 mx-1 sm:mx-2">
             <span className="text-[11px] sm:text-xs font-mono font-medium text-slate-500 whitespace-nowrap tabular-nums">
               {currentPage}/30
             </span>
@@ -297,9 +332,12 @@ export default function AboutModal({ isOpen, onClose }) {
 
           {/* Next Button */}
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(30, prev + 1))}
+            onClick={() => {
+              setCurrentPage((prev) => Math.min(30, prev + 1));
+              setShowMobileToc(false);
+            }}
             disabled={currentPage === 30}
-            className="px-3 sm:px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-medium flex items-center gap-1 transition-colors flex-shrink-0"
+            className="px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-medium flex items-center gap-1 transition-colors flex-shrink-0"
           >
             <span>Next</span>
             <ChevronRight className="w-4 h-4" />

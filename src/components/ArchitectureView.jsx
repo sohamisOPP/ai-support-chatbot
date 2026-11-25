@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Cpu, Database, Layers, Server, Globe, 
+  Cpu, Database, Server, Globe, 
   Code2, Copy, Check
 } from 'lucide-react';
 
@@ -126,19 +126,19 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-4 sm:space-y-6">
       {/* Overview Header */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div className="flex flex-wrap items-center gap-2 mb-1">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">
             System Architecture
           </span>
           <span className="text-slate-300">•</span>
-          <span className="text-xs text-slate-500">
+          <span className="text-[11px] sm:text-xs text-slate-500">
             Project B Engineering Specifications
           </span>
         </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
           Multi-Tier Pipeline &amp; Integration Architecture
         </h2>
         <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl">
@@ -147,10 +147,10 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
       </div>
 
       {/* 4 Pipeline Architecture Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 1</span>
               <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Globe className="w-4 h-4" />
@@ -161,14 +161,14 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               Customer support messenger, real-time sentiment gauge, and CSAT collector.
             </p>
           </div>
-          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
+          <div className="mt-3 sm:mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             React 18 • Tailwind CSS
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 2</span>
               <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Server className="w-4 h-4" />
@@ -179,14 +179,14 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               High-throughput async REST and WebSocket endpoints with session tracking.
             </p>
           </div>
-          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
+          <div className="mt-3 sm:mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             Python 3.11 • Uvicorn
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 3</span>
               <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Cpu className="w-4 h-4" />
@@ -197,14 +197,14 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               DistilBERT sequence classification and intent/entity extraction.
             </p>
           </div>
-          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
+          <div className="mt-3 sm:mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             PyTorch • Transformers
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-3">
               <span className="text-[10px] font-bold uppercase text-slate-400">Layer 4</span>
               <div className="p-1.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 <Database className="w-4 h-4" />
@@ -215,27 +215,38 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               Stores transcripts, dispatches tickets to Zendesk and Salesforce.
             </p>
           </div>
-          <div className="mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
+          <div className="mt-3 sm:mt-4 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
             PostgreSQL • REST Webhooks
           </div>
         </div>
       </div>
 
-      {/* Code Viewer */}
+      {/* Code Viewer (Mobile overflow-safe scrollable file tabs) */}
       <div className="rounded-xl overflow-hidden border border-slate-800 shadow-lg">
-        <div className="px-4 py-3 bg-slate-900 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-slate-400" />
-            <span className="text-xs font-semibold text-slate-200">
-              Backend Implementation
-            </span>
+        <div className="px-3.5 sm:px-4 py-3 bg-slate-900 border-b border-slate-800 space-y-2.5 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <Code2 className="w-4 h-4 text-slate-400 flex-shrink-0" />
+              <span className="text-xs font-semibold text-slate-200 truncate">
+                Backend Implementation
+              </span>
+            </div>
+
+            <button
+              onClick={handleCopy}
+              className="sm:hidden px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1.5 transition-colors border border-slate-700 flex-shrink-0"
+              title="Copy code"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="text-[11px]">{copied ? 'Copied' : 'Copy'}</span>
+            </button>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="flex items-center bg-slate-800 p-0.5 rounded-md text-xs font-mono">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center bg-slate-800 p-0.5 rounded-md text-xs font-mono overflow-x-auto max-w-full whitespace-nowrap">
               <button
                 onClick={() => setActiveCodeTab('fastapi')}
-                className={`px-2.5 py-1 rounded transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors flex-shrink-0 ${
                   activeCodeTab === 'fastapi'
                     ? 'bg-slate-700 text-white font-medium'
                     : 'text-slate-400 hover:text-slate-200'
@@ -245,7 +256,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               </button>
               <button
                 onClick={() => setActiveCodeTab('transformers')}
-                className={`px-2.5 py-1 rounded transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors flex-shrink-0 ${
                   activeCodeTab === 'transformers'
                     ? 'bg-slate-700 text-white font-medium'
                     : 'text-slate-400 hover:text-slate-200'
@@ -255,7 +266,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
               </button>
               <button
                 onClick={() => setActiveCodeTab('database')}
-                className={`px-2.5 py-1 rounded transition-colors ${
+                className={`px-2.5 py-1 rounded transition-colors flex-shrink-0 ${
                   activeCodeTab === 'database'
                     ? 'bg-slate-700 text-white font-medium'
                     : 'text-slate-400 hover:text-slate-200'
@@ -267,7 +278,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
 
             <button
               onClick={handleCopy}
-              className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1.5 transition-colors border border-slate-700"
+              className="hidden sm:flex px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs items-center gap-1.5 transition-colors border border-slate-700 flex-shrink-0"
               title="Copy code"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -277,7 +288,7 @@ engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=20)`
         </div>
 
         {/* Code Content */}
-        <div className="p-4 bg-slate-950 overflow-x-auto text-xs font-mono leading-relaxed text-slate-300 max-h-96">
+        <div className="p-3.5 sm:p-4 bg-slate-950 overflow-x-auto text-[11px] sm:text-xs font-mono leading-relaxed text-slate-300 max-h-96">
           <pre>{codeSnippets[activeCodeTab]}</pre>
         </div>
       </div>
